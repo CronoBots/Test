@@ -97,7 +97,14 @@ a{color:inherit;text-decoration:none}
 @keyframes ping{0%{box-shadow:0 0 0 0 rgba(70,224,138,.5)}70%,100%{box-shadow:0 0 0 7px rgba(70,224,138,0)}}
 
 /* ============ HÉRO ============ */
-.hero{padding:46px 0 30px;border-bottom:1px solid var(--line)}
+.hero{position:relative;overflow:hidden;border-radius:var(--radius);
+  padding:54px 26px 40px;margin-top:14px;border:1px solid var(--line);isolation:isolate}
+.hero-media{position:absolute;inset:0;z-index:-1;background:var(--bg-soft)}
+.hero-media img,.hero-media video{position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;opacity:.5;animation:kenburns 20s ease-in-out infinite alternate}
+@keyframes kenburns{from{transform:scale(1.06) translate(0,0)}to{transform:scale(1.2) translate(-2%,-3%)}}
+.hero-veil{position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(10,9,8,.35),rgba(10,9,8,.78) 70%,var(--bg));}
 .eyebrow{font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
 .bigname{position:relative;font-weight:800;line-height:.86;letter-spacing:-.05em;
   font-size:clamp(3.6rem,21vw,8.5rem);text-transform:uppercase}
@@ -157,11 +164,16 @@ a{color:inherit;text-decoration:none}
 
 /* ============ GALERIE (mosaïque asymétrique) ============ */
 .gallery{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
-.cell{border-radius:14px;overflow:hidden;background:var(--bg-soft);border:1px solid var(--line);
+.cell{position:relative;border-radius:14px;overflow:hidden;background:var(--bg-soft);border:1px solid var(--line);
   display:grid;place-items:center;font-size:1.7rem;color:var(--muted);
   transition:transform .4s cubic-bezier(.2,.7,.2,1),box-shadow .4s ease;cursor:pointer}
 .cell:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 16px 40px rgba(0,0,0,.5)}
-.cell img{width:100%;height:100%;object-fit:cover;display:block}
+.cell img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.cell:hover img{transform:scale(1.08)}
+.cell::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.35));
+  opacity:0;transition:opacity .3s;pointer-events:none}
+.cell:hover::after{opacity:1}
 .cell.big{grid-column:span 4;aspect-ratio:2/1.15}
 .cell.small{grid-column:span 2;aspect-ratio:1}
 .cell.wide{grid-column:span 3;aspect-ratio:3/2}
@@ -248,6 +260,18 @@ footer .socials a:hover::after{width:100%}
 
     <!-- ===== HÉRO ===== -->
     <section class="hero">
+      <!-- ===== FOND ANIMÉ DU HÉRO =====
+           ✏️ POUR METTRE UNE VIDÉO PLUS TARD : remplace le bloc <img> ci-dessous par :
+           <video autoplay muted loop playsinline poster="">
+             <source src="https://videos.pexels.com/.../ta-video.mp4" type="video/mp4">
+           </video>
+           (mets le lien direct .mp4 obtenu via "Free Download" sur Pexels) -->
+      <div class="hero-media" aria-hidden="true">
+        <img src="https://loremflickr.com/1000/1300/fitness,athletic,gym,woman?lock=21"
+             alt="" loading="eager" onerror="this.remove()">
+        <span class="hero-veil"></span>
+      </div>
+
       <div class="eyebrow">Fitness creator — Belgique</div>
       <!-- ✏️ Le grand nom -->
       <h1 class="bigname"><span class="fill">Elaudace</span></h1>
@@ -293,13 +317,15 @@ footer .socials a:hover::after{width:100%}
 
     <!-- ===== 03 · APERÇU ===== -->
     <div class="sec-head reveal"><span class="num">03</span><span class="label">Aperçu</span><span class="rule"></span></div>
-    <!-- ✏️ Galerie : remplace les emojis par <img src="..." alt=""> -->
+    <!-- ✏️ Galerie : images placeholder fitness (aléatoires, thématiques).
+         Pour mettre TES photos : remplace le src par l'URL de ton image.
+         Si une image ne charge pas, la case garde son emoji de secours. -->
     <div class="gallery reveal">
-      <div class="cell big">🏋️</div>
-      <div class="cell small">🤸</div>
-      <div class="cell small">🧘</div>
-      <div class="cell wide">🥗</div>
-      <div class="cell wide">🏃</div>
+      <div class="cell big">🏋️<img src="https://loremflickr.com/900/520/fitness,athletic,abs,woman?lock=31" alt="" loading="lazy" onerror="this.remove()"></div>
+      <div class="cell small">🤸<img src="https://loremflickr.com/460/460/gym,fit,athletic?lock=32" alt="" loading="lazy" onerror="this.remove()"></div>
+      <div class="cell small">🧘<img src="https://loremflickr.com/460/460/yoga,fitness,body?lock=33" alt="" loading="lazy" onerror="this.remove()"></div>
+      <div class="cell wide">🏃<img src="https://loremflickr.com/520/350/running,fitness,athletic?lock=34" alt="" loading="lazy" onerror="this.remove()"></div>
+      <div class="cell wide">🥗<img src="https://loremflickr.com/520/350/workout,gym,body?lock=35" alt="" loading="lazy" onerror="this.remove()"></div>
     </div>
 
     <!-- ===== 04 · NEWSLETTER ===== -->
