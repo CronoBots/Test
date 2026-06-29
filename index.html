@@ -3,8 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ton Nom — Fitness &amp; Lifestyle</title>
-<meta name="description" content="Fitness, lifestyle et contenu exclusif. Rejoins-moi.">
+<title>Elaudace — Fitness &amp; Lifestyle</title>
+<meta name="description" content="Elaudace — fitness, lifestyle et contenu exclusif. Tous mes liens au même endroit.">
+<meta name="theme-color" content="#ff2d6f">
+
+<!-- ===== Partage social (aperçu sur Instagram, WhatsApp, X, Telegram…) =====
+     Quand tu auras l'URL finale, remplace les deux og:url ci-dessous. -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Elaudace — Fitness &amp; Lifestyle">
+<meta property="og:description" content="Fitness, lifestyle et contenu exclusif. Tous mes liens au même endroit.">
+<meta property="og:url" content="https://cronobots.github.io/Test/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Elaudace — Fitness &amp; Lifestyle">
+<meta name="twitter:description" content="Fitness, lifestyle et contenu exclusif. Tous mes liens au même endroit.">
+
+<!-- Favicon emoji (aucun fichier à uploader) -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9A%A1%3C/text%3E%3C/svg%3E">
 <style>
 /* =================================================================
    PERSONNALISATION RAPIDE — modifie uniquement les valeurs ci-dessous
@@ -181,6 +195,10 @@ body{
   background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:transform .15s ease;
 }
 .cta-row button:active{transform:scale(.96)}
+.cta-status{min-height:1.1em;margin-top:10px;font-size:.85rem;font-weight:600;opacity:0;transition:opacity .2s ease}
+.cta-status.show{opacity:1}
+.cta-status.ok{color:var(--accent-3)}
+.cta-status.err{color:var(--accent)}
 
 /* ============ FOOTER ============ */
 footer{margin-top:38px;text-align:center;color:var(--muted);font-size:.78rem;line-height:1.8}
@@ -215,17 +233,17 @@ footer .social a:hover{color:var(--accent);transform:translateY(-2px)}
   <main class="wrap">
 
     <!-- ================= AVATAR =================
-         Remplace l'emoji par : <img src="photo.jpg" alt="Ton Nom"> -->
+         Remplace l'emoji par : <img src="photo.jpg" alt="Elaudace"> -->
     <div class="avatar-ring reveal d1">
       <div class="avatar">💪</div>
     </div>
 
     <!-- ================= EN-TÊTE ================= -->
-    <h1 class="name reveal d2">Ton Nom</h1>
+    <h1 class="name reveal d2">Elaudace</h1>
     <span class="badge reveal d2">⚡ Fitness Creator</span>
     <p class="tagline reveal d3">
       Entraînements, lifestyle &amp; contenu exclusif.<br>
-      Rejoins-moi dans les coulisses 💫
+      Ose me suivre dans les coulisses 💫
     </p>
 
     <!-- ================= STATS (facultatif, modifie ou supprime) ================= -->
@@ -286,9 +304,10 @@ footer .social a:hover{color:var(--accent);transform:translateY(-2px)}
     <div class="cta-box reveal d8">
       <p>Laisse ton e-mail pour être prévenu·e des nouveautés.</p>
       <div class="cta-row">
-        <input type="email" id="email" placeholder="ton@email.com" aria-label="E-mail">
-        <button onclick="subscribe()">OK</button>
+        <input type="email" id="email" placeholder="ton@email.com" aria-label="E-mail" autocomplete="email">
+        <button type="button" onclick="subscribe()">OK</button>
       </div>
+      <p class="cta-status" id="cta-status" role="status" aria-live="polite"></p>
     </div>
 
     <!-- ================= FOOTER ================= -->
@@ -299,7 +318,7 @@ footer .social a:hover{color:var(--accent);transform:translateY(-2px)}
         <a href="#" target="_blank" rel="noopener" aria-label="Twitter">🐦</a>
         <a href="#" target="_blank" rel="noopener" aria-label="Telegram">✈️</a>
       </div>
-      © <span id="year"></span> Ton Nom — Tous droits réservés
+      © <span id="year"></span> Elaudace — Tous droits réservés
     </footer>
 
   </main>
@@ -318,12 +337,23 @@ footer .social a:hover{color:var(--accent);transform:translateY(-2px)}
 
     // Newsletter (démo — à relier à un vrai service type Mailchimp / Brevo)
     function subscribe(){
-      const v = document.getElementById('email').value.trim();
-      if(!v || !v.includes('@')){ alert('Entre une adresse e-mail valide 🙂'); return; }
-      alert('Merci ! Tu es bien inscrit·e ✨');
-      document.getElementById('email').value='';
+      const input  = document.getElementById('email');
+      const status = document.getElementById('cta-status');
+      const v = input.value.trim();
+      const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); // validation simple mais correcte
+      const show = (msg, type) => {
+        status.textContent = msg;
+        status.className = 'cta-status show ' + type;
+      };
+      if(!valid){ show('Entre une adresse e-mail valide 🙂', 'err'); input.focus(); return; }
+      show('Merci ! Tu es bien inscrit·e ✨', 'ok');
+      input.value = '';
       // Pour rendre ça réel : envoie "v" vers ton service d'emailing via leur API/formulaire.
     }
+    // Validation à la volée + envoi avec la touche Entrée
+    document.getElementById('email').addEventListener('keydown', e => {
+      if(e.key === 'Enter') subscribe();
+    });
 
     // Effet de profondeur léger au mouvement (désactivé si reduced-motion)
     if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
