@@ -3,366 +3,426 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Elaudace — Fitness &amp; Lifestyle</title>
-<meta name="description" content="Elaudace — fitness, lifestyle et contenu exclusif. Tous mes liens au même endroit.">
-<meta name="theme-color" content="#ff2d6f">
+<title>Elaudace — Fitness · Lifestyle</title>
+<meta name="description" content="Elaudace — fitness, lifestyle et contenu exclusif. Tous mes liens, un seul endroit.">
+<meta name="theme-color" content="#0a0908">
 
-<!-- ===== Partage social (aperçu sur Instagram, WhatsApp, X, Telegram…) =====
-     Quand tu auras l'URL finale, remplace les deux og:url ci-dessous. -->
+<!-- ===== Partage social (aperçu Insta / WhatsApp / X / Telegram) =====
+     Remplace l'URL og:url quand tu as l'adresse finale. -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="Elaudace — Fitness &amp; Lifestyle">
-<meta property="og:description" content="Fitness, lifestyle et contenu exclusif. Tous mes liens au même endroit.">
+<meta property="og:title" content="Elaudace — Fitness · Lifestyle">
+<meta property="og:description" content="Fitness, lifestyle & contenu exclusif. Tous mes liens, un seul endroit.">
 <meta property="og:url" content="https://cronobots.github.io/Test/">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Elaudace — Fitness &amp; Lifestyle">
-<meta name="twitter:description" content="Fitness, lifestyle et contenu exclusif. Tous mes liens au même endroit.">
+<meta name="twitter:title" content="Elaudace — Fitness · Lifestyle">
+<meta name="twitter:description" content="Fitness, lifestyle & contenu exclusif. Tous mes liens, un seul endroit.">
 
 <!-- Favicon emoji (aucun fichier à uploader) -->
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9A%A1%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E">
+
 <style>
 /* =================================================================
-   PERSONNALISATION RAPIDE — modifie uniquement les valeurs ci-dessous
+   ⚙️  PERSONNALISATION RAPIDE — change uniquement ces valeurs
    ================================================================= */
 :root{
-  --accent:      #ff2d6f;   /* couleur principale (rose vif) */
-  --accent-2:    #ff7a18;   /* couleur secondaire (orange) */
-  --accent-3:    #00e0c6;   /* touche turquoise */
-  --bg-1:        #0b0b10;   /* fond sombre haut */
-  --bg-2:        #14101c;   /* fond sombre bas */
-  --card:        rgba(255,255,255,.05);
-  --card-border: rgba(255,255,255,.10);
-  --text:        #ffffff;
-  --muted:       #a39bb5;
-  --radius:      18px;
-  --maxw:        480px;
+  /* Couleurs */
+  --bg:        #0a0908;   /* noir profond chaud */
+  --bg-soft:   #121010;   /* fond des cartes */
+  --ink:       #f4efe7;   /* texte crème */
+  --muted:     #8d847a;   /* texte secondaire */
+  --line:      rgba(244,239,231,.12);
+  --coral:     #ff4d6d;   /* accent principal (corail) */
+  --coral-2:   #ff7a59;   /* corail chaud */
+  --gold:      #e7c79b;   /* champagne (détails premium) */
+
+  /* Réglages */
+  --maxw:      640px;
+  --radius:    20px;
+  --font:      'Inter','Segoe UI',-apple-system,BlinkMacSystemFont,sans-serif;
 }
 
-/* ============ RESET ============ */
+/* ============ BASE ============ */
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{
-  font-family:'Inter','Segoe UI',-apple-system,BlinkMacSystemFont,sans-serif;
-  color:var(--text);
-  background:var(--bg-1);
+  font-family:var(--font);
+  background:var(--bg);
+  color:var(--ink);
   min-height:100vh;
   overflow-x:hidden;
-  position:relative;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
 }
+a{color:inherit;text-decoration:none}
+::selection{background:var(--coral);color:#fff}
 
-/* ============ FOND ANIMÉ ============ */
-.bg-gradient{
-  position:fixed;inset:0;z-index:-2;
+/* ============ TEXTURE & LUMIÈRE DE FOND ============ */
+.bg-fx{position:fixed;inset:0;z-index:-3;
   background:
-    radial-gradient(circle at 20% 20%, rgba(255,45,111,.25), transparent 45%),
-    radial-gradient(circle at 80% 30%, rgba(255,122,24,.20), transparent 45%),
-    radial-gradient(circle at 50% 90%, rgba(0,224,198,.18), transparent 45%),
-    linear-gradient(160deg,var(--bg-1),var(--bg-2));
-  animation:pulse 14s ease-in-out infinite;
+    radial-gradient(60% 50% at 50% -10%, rgba(255,77,109,.22), transparent 70%),
+    radial-gradient(45% 40% at 100% 0%, rgba(231,199,155,.10), transparent 70%),
+    radial-gradient(55% 45% at 0% 100%, rgba(255,122,89,.10), transparent 70%);
 }
-@keyframes pulse{
-  0%,100%{filter:hue-rotate(0deg) brightness(1)}
-  50%{filter:hue-rotate(20deg) brightness(1.1)}
-}
-.bg-grain{
-  position:fixed;inset:0;z-index:-1;opacity:.04;pointer-events:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
+.grain{position:fixed;inset:0;z-index:-2;opacity:.05;pointer-events:none;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+/* Halo qui suit la souris (desktop) */
+.spotlight{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:0;transition:opacity .6s ease;
+  background:radial-gradient(280px circle at var(--mx,50%) var(--my,30%), rgba(255,77,109,.10), transparent 60%);}
+@media (hover:hover){.spotlight{opacity:1}}
+
+/* ============ INTRO ============ */
+#intro{position:fixed;inset:0;z-index:100;background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform 1s cubic-bezier(.76,0,.24,1);}
+#intro.done{transform:translateY(-100%)}
+#intro .mark{font-weight:800;font-size:clamp(2.4rem,12vw,5rem);letter-spacing:-.04em;
+  color:var(--ink);overflow:hidden;display:flex}
+#intro .mark span{display:inline-block;transform:translateY(110%);
+  animation:introUp .7s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes introUp{to{transform:none}}
+#intro .bar{position:absolute;bottom:0;left:0;height:2px;width:0;background:var(--coral);
+  animation:introBar 1.2s ease forwards}
+@keyframes introBar{to{width:100%}}
 
 /* ============ CONTENEUR ============ */
-.wrap{
-  max-width:var(--maxw);
-  margin:0 auto;
-  padding:48px 22px 64px;
-  display:flex;flex-direction:column;align-items:center;
-}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:26px 22px 60px}
 
-/* ============ ANIMATIONS D'ENTRÉE ============ */
-.reveal{opacity:0;transform:translateY(24px);animation:rise .7s cubic-bezier(.2,.7,.3,1) forwards}
-@keyframes rise{to{opacity:1;transform:none}}
-.d1{animation-delay:.05s}.d2{animation-delay:.15s}.d3{animation-delay:.25s}
-.d4{animation-delay:.35s}.d5{animation-delay:.45s}.d6{animation-delay:.55s}
-.d7{animation-delay:.65s}.d8{animation-delay:.75s}
+/* ============ BARRE HAUTE ============ */
+.topbar{display:flex;align-items:center;justify-content:space-between;
+  font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.topbar .mono{font-weight:800;color:var(--ink);letter-spacing:-.02em;font-size:1rem;text-transform:none}
+.status{display:inline-flex;align-items:center;gap:7px}
+.status .dot{width:7px;height:7px;border-radius:50%;background:#46e08a;
+  box-shadow:0 0 0 0 rgba(70,224,138,.6);animation:ping 2.2s ease-out infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(70,224,138,.5)}70%,100%{box-shadow:0 0 0 7px rgba(70,224,138,0)}}
 
-/* ============ AVATAR ============ */
-.avatar-ring{
-  width:130px;height:130px;border-radius:50%;
-  padding:4px;margin-bottom:18px;position:relative;
-  background:conic-gradient(from 0deg,var(--accent),var(--accent-2),var(--accent-3),var(--accent));
-  animation:spin 6s linear infinite;
-}
-@keyframes spin{to{transform:rotate(360deg)}}
-.avatar-ring::after{
-  content:"";position:absolute;inset:-6px;border-radius:50%;
-  background:conic-gradient(from 0deg,var(--accent),var(--accent-2),var(--accent-3),var(--accent));
-  filter:blur(16px);opacity:.5;z-index:-1;
-}
-.avatar{
-  width:100%;height:100%;border-radius:50%;
-  background:var(--bg-2);overflow:hidden;
-  display:flex;align-items:center;justify-content:center;font-size:46px;
-  animation:spin 6s linear infinite reverse; /* contre-rotation pour garder l'image droite */
-}
-.avatar img{width:100%;height:100%;object-fit:cover;display:block}
-
-/* ============ EN-TÊTE ============ */
-.name{font-size:1.9rem;font-weight:800;letter-spacing:.5px;text-align:center}
-.badge{
-  display:inline-flex;align-items:center;gap:6px;margin-top:8px;
-  padding:5px 14px;border-radius:100px;font-size:.78rem;font-weight:600;
-  background:linear-gradient(90deg,var(--accent),var(--accent-2));
-}
-.tagline{color:var(--muted);text-align:center;margin-top:14px;line-height:1.6;font-size:1rem;max-width:340px}
-
-/* ============ STATS ============ */
-.stats{display:flex;gap:10px;margin:26px 0 8px;width:100%}
-.stat{
-  flex:1;background:var(--card);border:1px solid var(--card-border);
-  border-radius:14px;padding:14px 8px;text-align:center;backdrop-filter:blur(8px);
-}
-.stat b{display:block;font-size:1.25rem;font-weight:800;
-  background:linear-gradient(90deg,var(--accent),var(--accent-3));
+/* ============ HÉRO ============ */
+.hero{padding:46px 0 30px;border-bottom:1px solid var(--line)}
+.eyebrow{font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+.bigname{position:relative;font-weight:800;line-height:.86;letter-spacing:-.05em;
+  font-size:clamp(3.6rem,21vw,8.5rem);text-transform:uppercase}
+.bigname .fill{background:linear-gradient(92deg,var(--ink) 30%,var(--coral) 75%,var(--coral-2));
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.stat span{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.hero .lede{margin-top:22px;max-width:30ch;color:var(--muted);font-size:1.02rem}
+.rotator{color:var(--ink);font-weight:600}
+.scrollcue{margin-top:30px;display:inline-flex;align-items:center;gap:10px;
+  font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.scrollcue i{width:30px;height:1px;background:var(--muted);position:relative;overflow:hidden;display:inline-block}
+.scrollcue i::after{content:"";position:absolute;inset:0;background:var(--coral);
+  transform:translateX(-100%);animation:slide 2.2s ease-in-out infinite}
+@keyframes slide{50%{transform:translateX(0)}100%{transform:translateX(100%)}}
 
-/* ============ SECTIONS ============ */
-.section-title{
-  align-self:flex-start;margin:32px 0 14px;font-size:.8rem;font-weight:700;
-  text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);
-}
+/* ============ INDEX / SECTIONS ============ */
+.sec-head{display:flex;align-items:baseline;gap:14px;margin:42px 0 18px}
+.sec-head .num{font-size:.74rem;color:var(--gold);font-weight:700;letter-spacing:.05em}
+.sec-head .label{font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.sec-head .rule{flex:1;height:1px;background:var(--line)}
 
-/* ============ LIENS ============ */
-.links{display:flex;flex-direction:column;gap:13px;width:100%}
-.link{
-  display:flex;align-items:center;gap:15px;
-  background:var(--card);border:1px solid var(--card-border);
-  border-radius:var(--radius);padding:16px 20px;
-  color:var(--text);text-decoration:none;font-weight:600;
-  backdrop-filter:blur(8px);position:relative;overflow:hidden;
-  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
-}
-.link::before{
-  content:"";position:absolute;inset:0;opacity:0;transition:opacity .2s ease;
-  background:linear-gradient(90deg,rgba(255,45,111,.14),rgba(255,122,24,.10));
-}
-.link:hover{transform:translateY(-3px);border-color:var(--accent);
-  box-shadow:0 12px 30px rgba(0,0,0,.4)}
-.link:hover::before{opacity:1}
-.link .ico{font-size:1.4rem;width:30px;text-align:center;flex-shrink:0;position:relative;z-index:1}
-.link .body{flex:1;position:relative;z-index:1}
-.link .body .t{display:block;font-size:1.02rem}
-.link .body .s{display:block;font-size:.78rem;color:var(--muted);font-weight:500;margin-top:2px}
-.link .arrow{opacity:.4;font-size:1.2rem;position:relative;z-index:1;transition:transform .18s ease,opacity .18s ease}
-.link:hover .arrow{opacity:1;transform:translateX(4px)}
+/* ============ CARTE FEATURED ============ */
+.featured{display:block;position:relative;overflow:hidden;border-radius:var(--radius);
+  padding:30px;background:
+    linear-gradient(135deg,rgba(255,77,109,.16),rgba(255,122,89,.06)),var(--bg-soft);
+  border:1px solid rgba(255,77,109,.30);
+  transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s ease;
+  will-change:transform}
+.featured:hover{box-shadow:0 24px 60px rgba(255,77,109,.18)}
+.featured .kicker{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.featured h3{font-size:clamp(1.6rem,6vw,2.3rem);font-weight:800;letter-spacing:-.02em;margin:12px 0 8px;line-height:1.04}
+.featured p{color:var(--muted);max-width:34ch}
+.featured .go{margin-top:22px;display:inline-flex;align-items:center;gap:12px;
+  font-weight:700;font-size:.95rem}
+.featured .go .circle{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;
+  background:var(--coral);color:#fff;font-size:1.1rem;transition:transform .3s ease}
+.featured:hover .go .circle{transform:translateX(6px) rotate(-8deg)}
+.featured .sheen{position:absolute;top:0;left:-70%;width:45%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);
+  transform:skewX(-18deg);animation:sheen 4.5s ease-in-out infinite}
+@keyframes sheen{0%{left:-70%}45%,100%{left:150%}}
 
-.link.featured{
-  background:linear-gradient(120deg,var(--accent),var(--accent-2));
-  border:none;
-}
-.link.featured .body .s{color:rgba(255,255,255,.85)}
-.link.featured::after{
-  content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);
-  transform:skewX(-20deg);animation:shine 3.5s ease-in-out infinite;
-}
-@keyframes shine{0%{left:-60%}40%,100%{left:140%}}
+/* ============ LIENS RÉSEAUX (style index éditorial) ============ */
+.rows{border-top:1px solid var(--line)}
+.row{position:relative;display:flex;align-items:center;gap:18px;
+  padding:20px 4px;border-bottom:1px solid var(--line);overflow:hidden;
+  transition:padding-left .3s ease,color .3s ease}
+.row .idx{font-size:.74rem;color:var(--gold);font-weight:700;width:26px;flex-shrink:0}
+.row .name{font-size:1.3rem;font-weight:700;letter-spacing:-.01em}
+.row .meta{margin-left:auto;font-size:.8rem;color:var(--muted);text-align:right}
+.row .arrow{margin-left:14px;font-size:1.1rem;color:var(--muted);transition:transform .3s ease,color .3s ease}
+.row::before{content:"";position:absolute;left:0;top:0;height:100%;width:0;
+  background:linear-gradient(90deg,rgba(255,77,109,.12),transparent);transition:width .35s ease;z-index:-1}
+.row:hover{padding-left:20px}
+.row:hover::before{width:100%}
+.row:hover .arrow{transform:translateX(5px);color:var(--coral)}
+.row:hover .name{color:var(--ink)}
 
-/* ============ GALERIE ============ */
-.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;width:100%}
-.gallery .cell{
-  aspect-ratio:1;border-radius:12px;overflow:hidden;
-  background:var(--card);border:1px solid var(--card-border);
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.5rem;color:var(--muted);cursor:pointer;
-  transition:transform .18s ease,box-shadow .18s ease;
-}
-.gallery .cell:hover{transform:scale(1.04);box-shadow:0 8px 20px rgba(0,0,0,.4)}
-.gallery .cell img{width:100%;height:100%;object-fit:cover}
+/* ============ GALERIE (mosaïque asymétrique) ============ */
+.gallery{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.cell{border-radius:14px;overflow:hidden;background:var(--bg-soft);border:1px solid var(--line);
+  display:grid;place-items:center;font-size:1.7rem;color:var(--muted);
+  transition:transform .4s cubic-bezier(.2,.7,.2,1),box-shadow .4s ease;cursor:pointer}
+.cell:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 16px 40px rgba(0,0,0,.5)}
+.cell img{width:100%;height:100%;object-fit:cover;display:block}
+.cell.big{grid-column:span 4;aspect-ratio:2/1.15}
+.cell.small{grid-column:span 2;aspect-ratio:1}
+.cell.wide{grid-column:span 3;aspect-ratio:3/2}
 
-/* ============ NEWSLETTER / CONTACT ============ */
-.cta-box{
-  width:100%;margin-top:14px;padding:20px;border-radius:var(--radius);
-  background:var(--card);border:1px solid var(--card-border);text-align:center;backdrop-filter:blur(8px);
-}
-.cta-box p{color:var(--muted);font-size:.92rem;margin-bottom:14px;line-height:1.5}
-.cta-row{display:flex;gap:8px}
-.cta-row input{
-  flex:1;padding:12px 14px;border-radius:12px;border:1px solid var(--card-border);
-  background:rgba(0,0,0,.25);color:var(--text);font-size:.92rem;outline:none;
-}
-.cta-row input:focus{border-color:var(--accent)}
-.cta-row button{
-  padding:12px 18px;border:none;border-radius:12px;font-weight:700;cursor:pointer;color:#fff;
-  background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:transform .15s ease;
-}
+/* ============ NEWSLETTER ============ */
+.cta{margin-top:8px;padding:28px;border-radius:var(--radius);
+  background:var(--bg-soft);border:1px solid var(--line)}
+.cta h4{font-size:1.25rem;font-weight:800;letter-spacing:-.01em}
+.cta p{color:var(--muted);font-size:.92rem;margin:8px 0 18px;max-width:40ch}
+.cta-row{display:flex;gap:10px}
+.cta-row input{flex:1;padding:14px 16px;border-radius:12px;border:1px solid var(--line);
+  background:rgba(0,0,0,.35);color:var(--ink);font-size:.95rem;outline:none;transition:border-color .2s}
+.cta-row input:focus{border-color:var(--coral)}
+.cta-row button{padding:14px 20px;border:none;border-radius:12px;font-weight:700;cursor:pointer;
+  color:#fff;background:linear-gradient(92deg,var(--coral),var(--coral-2));transition:transform .15s,filter .2s}
+.cta-row button:hover{filter:brightness(1.08)}
 .cta-row button:active{transform:scale(.96)}
-.cta-status{min-height:1.1em;margin-top:10px;font-size:.85rem;font-weight:600;opacity:0;transition:opacity .2s ease}
+.cta-status{min-height:1.1em;margin-top:12px;font-size:.85rem;font-weight:600;opacity:0;transition:opacity .25s}
 .cta-status.show{opacity:1}
-.cta-status.ok{color:var(--accent-3)}
-.cta-status.err{color:var(--accent)}
+.cta-status.ok{color:#46e08a}.cta-status.err{color:var(--coral)}
 
-/* ============ FOOTER ============ */
-footer{margin-top:38px;text-align:center;color:var(--muted);font-size:.78rem;line-height:1.8}
-footer .social{display:flex;gap:16px;justify-content:center;margin-bottom:12px;font-size:1.3rem}
-footer .social a{color:var(--muted);text-decoration:none;transition:color .15s ease,transform .15s ease;display:inline-block}
-footer .social a:hover{color:var(--accent);transform:translateY(-2px)}
+/* ============ MARQUEE + FOOTER ============ */
+.marquee{margin-top:60px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  overflow:hidden;white-space:nowrap;padding:18px 0}
+.marquee .track{display:inline-block;animation:scrollx 22s linear infinite}
+.marquee span{font-weight:800;font-size:1.6rem;letter-spacing:-.02em;text-transform:uppercase;
+  color:transparent;-webkit-text-stroke:1px var(--muted);padding:0 18px}
+.marquee span.on{color:var(--coral);-webkit-text-stroke:0}
+@keyframes scrollx{to{transform:translateX(-50%)}}
 
-/* ============ BOUTON HAUT DE PAGE ============ */
-.totop{
-  position:fixed;right:18px;bottom:18px;width:44px;height:44px;border-radius:50%;
-  background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;border:none;
-  font-size:1.2rem;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .25s ease,transform .2s ease;
-  display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.4);z-index:10;
-}
+footer{margin-top:34px;display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:14px;color:var(--muted);font-size:.78rem}
+footer .socials{display:flex;gap:18px;font-size:.8rem;text-transform:uppercase;letter-spacing:.1em}
+footer .socials a{position:relative}
+footer .socials a::after{content:"";position:absolute;left:0;bottom:-3px;width:0;height:1px;
+  background:var(--coral);transition:width .25s}
+footer .socials a:hover{color:var(--ink)}
+footer .socials a:hover::after{width:100%}
+
+/* ============ BOUTON HAUT ============ */
+.totop{position:fixed;right:18px;bottom:18px;width:46px;height:46px;border-radius:50%;
+  background:var(--ink);color:var(--bg);border:none;font-size:1.1rem;cursor:pointer;
+  opacity:0;pointer-events:none;transition:opacity .25s,transform .2s;display:grid;place-items:center;
+  z-index:20;box-shadow:0 8px 24px rgba(0,0,0,.5)}
 .totop.show{opacity:1;pointer-events:auto}
 .totop:hover{transform:translateY(-3px)}
 
-@media (max-width:380px){
-  .name{font-size:1.6rem}
-  .stat b{font-size:1.05rem}
+/* ============ ANIMATIONS DE RÉVÉLATION ============ */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:520px){
+  .row .meta{display:none}
+  .cell.big{grid-column:span 6}
+  .cell.wide{grid-column:span 3}
+  .cta-row{flex-direction:column}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
   .reveal{opacity:1;transform:none}
+  #intro{display:none}
 }
 </style>
 </head>
 <body>
-  <div class="bg-gradient"></div>
-  <div class="bg-grain"></div>
+  <div class="bg-fx"></div>
+  <div class="grain"></div>
+  <div class="spotlight" id="spot"></div>
+
+  <!-- ===== INTRO (s'efface toute seule) ===== -->
+  <div id="intro" aria-hidden="true">
+    <div class="mark" id="introMark"></div>
+    <div class="bar"></div>
+  </div>
 
   <main class="wrap">
 
-    <!-- ================= AVATAR =================
-         Remplace l'emoji par : <img src="photo.jpg" alt="Elaudace"> -->
-    <div class="avatar-ring reveal d1">
-      <div class="avatar">💪</div>
-    </div>
+    <!-- ===== BARRE HAUTE ===== -->
+    <header class="topbar">
+      <span class="mono">✦ Elaudace</span>
+      <span class="status"><span class="dot"></span> En ligne · <span id="clock">--:--</span> Bruxelles</span>
+    </header>
 
-    <!-- ================= EN-TÊTE ================= -->
-    <h1 class="name reveal d2">Elaudace</h1>
-    <span class="badge reveal d2">⚡ Fitness Creator</span>
-    <p class="tagline reveal d3">
-      Entraînements, lifestyle &amp; contenu exclusif.<br>
-      Ose me suivre dans les coulisses 💫
-    </p>
+    <!-- ===== HÉRO ===== -->
+    <section class="hero">
+      <div class="eyebrow">Fitness creator — Belgique</div>
+      <!-- ✏️ Le grand nom -->
+      <h1 class="bigname"><span class="fill">Elaudace</span></h1>
+      <p class="lede">
+        L'audace au quotidien : <span class="rotator" id="rotator">entraînements</span>.<br>
+        Bienvenue dans les coulisses.
+      </p>
+      <span class="scrollcue"><i></i> Fais défiler</span>
+    </section>
 
-    <!-- ================= STATS (facultatif, modifie ou supprime) ================= -->
-    <div class="stats reveal d3">
-      <div class="stat"><b>—</b><span>Posts</span></div>
-      <div class="stat"><b>—</b><span>Abonnés</span></div>
-      <div class="stat"><b>5★</b><span>Avis</span></div>
-    </div>
+    <!-- ===== 01 · CONTENU EXCLUSIF ===== -->
+    <div class="sec-head reveal"><span class="num">01</span><span class="label">L'exclu</span><span class="rule"></span></div>
+    <!-- ✏️ Lien principal : remplace le href="#" -->
+    <a class="featured reveal" id="magnet" href="#" target="_blank" rel="noopener">
+      <span class="sheen"></span>
+      <span class="kicker">Accès privé</span>
+      <h3>Mon contenu exclusif</h3>
+      <p>Photos, vidéos & coulisses. Le meilleur de mon univers, en accès direct.</p>
+      <span class="go">Rejoindre maintenant <span class="circle">↗</span></span>
+    </a>
 
-    <!-- ================= LIEN PRINCIPAL ================= -->
-    <div class="section-title reveal d4">À ne pas manquer</div>
-    <div class="links">
-      <a class="link featured reveal d4" href="#" target="_blank" rel="noopener">
-        <span class="ico">⭐</span>
-        <span class="body"><span class="t">Mon contenu exclusif</span><span class="s">Photos, vidéos &amp; plus — accès direct</span></span>
-        <span class="arrow">→</span>
+    <!-- ===== 02 · RÉSEAUX ===== -->
+    <div class="sec-head reveal"><span class="num">02</span><span class="label">Retrouve-moi</span><span class="rule"></span></div>
+    <div class="rows reveal">
+      <!-- ✏️ Réseaux : remplace chaque href="#" -->
+      <a class="row" href="#" target="_blank" rel="noopener">
+        <span class="idx">/01</span><span class="name">Instagram</span>
+        <span class="meta">Quotidien & training</span><span class="arrow">↗</span>
+      </a>
+      <a class="row" href="#" target="_blank" rel="noopener">
+        <span class="idx">/02</span><span class="name">TikTok</span>
+        <span class="meta">Vidéos & routines</span><span class="arrow">↗</span>
+      </a>
+      <a class="row" href="#" target="_blank" rel="noopener">
+        <span class="idx">/03</span><span class="name">Twitter / X</span>
+        <span class="meta">Actus & teasers</span><span class="arrow">↗</span>
+      </a>
+      <a class="row" href="#" target="_blank" rel="noopener">
+        <span class="idx">/04</span><span class="name">Telegram</span>
+        <span class="meta">Communauté privée</span><span class="arrow">↗</span>
       </a>
     </div>
 
-    <!-- ================= RÉSEAUX ================= -->
-    <div class="section-title reveal d5">Retrouve-moi</div>
-    <div class="links">
-      <a class="link reveal d5" href="#" target="_blank" rel="noopener">
-        <span class="ico">📷</span>
-        <span class="body"><span class="t">Instagram</span><span class="s">Mon quotidien &amp; mes entraînements</span></span>
-        <span class="arrow">→</span>
-      </a>
-      <a class="link reveal d6" href="#" target="_blank" rel="noopener">
-        <span class="ico">🎵</span>
-        <span class="body"><span class="t">TikTok</span><span class="s">Mes vidéos &amp; routines</span></span>
-        <span class="arrow">→</span>
-      </a>
-      <a class="link reveal d6" href="#" target="_blank" rel="noopener">
-        <span class="ico">🐦</span>
-        <span class="body"><span class="t">Twitter / X</span><span class="s">Actus &amp; teasers</span></span>
-        <span class="arrow">→</span>
-      </a>
-      <a class="link reveal d7" href="#" target="_blank" rel="noopener">
-        <span class="ico">✈️</span>
-        <span class="body"><span class="t">Telegram</span><span class="s">Ma communauté privée</span></span>
-        <span class="arrow">→</span>
-      </a>
+    <!-- ===== 03 · APERÇU ===== -->
+    <div class="sec-head reveal"><span class="num">03</span><span class="label">Aperçu</span><span class="rule"></span></div>
+    <!-- ✏️ Galerie : remplace les emojis par <img src="..." alt=""> -->
+    <div class="gallery reveal">
+      <div class="cell big">🏋️</div>
+      <div class="cell small">🤸</div>
+      <div class="cell small">🧘</div>
+      <div class="cell wide">🥗</div>
+      <div class="cell wide">🏃</div>
     </div>
 
-    <!-- ================= GALERIE (remplace les emojis par des <img>) ================= -->
-    <div class="section-title reveal d7">Aperçu</div>
-    <div class="gallery reveal d7">
-      <div class="cell">🏋️</div>
-      <div class="cell">🤸</div>
-      <div class="cell">🧘</div>
-      <div class="cell">🥗</div>
-      <div class="cell">🏃</div>
-      <div class="cell">💪</div>
-    </div>
-
-    <!-- ================= NEWSLETTER / CONTACT ================= -->
-    <div class="section-title reveal d8">Reste informé·e</div>
-    <div class="cta-box reveal d8">
-      <p>Laisse ton e-mail pour être prévenu·e des nouveautés.</p>
+    <!-- ===== 04 · NEWSLETTER ===== -->
+    <div class="sec-head reveal"><span class="num">04</span><span class="label">Reste informé·e</span><span class="rule"></span></div>
+    <div class="cta reveal">
+      <h4>Ne rate aucune nouveauté</h4>
+      <p>Laisse ton e-mail : tu seras prévenu·e en avant-première des sorties et offres.</p>
       <div class="cta-row">
         <input type="email" id="email" placeholder="ton@email.com" aria-label="E-mail" autocomplete="email">
-        <button type="button" onclick="subscribe()">OK</button>
+        <button type="button" onclick="subscribe()">S'inscrire</button>
       </div>
       <p class="cta-status" id="cta-status" role="status" aria-live="polite"></p>
     </div>
 
-    <!-- ================= FOOTER ================= -->
-    <footer class="reveal d8">
-      <div class="social">
-        <a href="#" target="_blank" rel="noopener" aria-label="Instagram">📷</a>
-        <a href="#" target="_blank" rel="noopener" aria-label="TikTok">🎵</a>
-        <a href="#" target="_blank" rel="noopener" aria-label="Twitter">🐦</a>
-        <a href="#" target="_blank" rel="noopener" aria-label="Telegram">✈️</a>
+    <!-- ===== MARQUEE ===== -->
+    <div class="marquee" aria-hidden="true">
+      <div class="track">
+        <span>Elaudace</span><span class="on">✦</span><span>Fitness</span><span class="on">✦</span><span>Lifestyle</span><span class="on">✦</span><span>Mindset</span><span class="on">✦</span>
+        <span>Elaudace</span><span class="on">✦</span><span>Fitness</span><span class="on">✦</span><span>Lifestyle</span><span class="on">✦</span><span>Mindset</span><span class="on">✦</span>
       </div>
-      © <span id="year"></span> Elaudace — Tous droits réservés
-    </footer>
+    </div>
 
+    <!-- ===== FOOTER ===== -->
+    <footer>
+      <span>© <span id="year"></span> Elaudace — Tous droits réservés</span>
+      <div class="socials">
+        <a href="#" target="_blank" rel="noopener">Insta</a>
+        <a href="#" target="_blank" rel="noopener">TikTok</a>
+        <a href="#" target="_blank" rel="noopener">X</a>
+        <a href="#" target="_blank" rel="noopener">Telegram</a>
+      </div>
+    </footer>
   </main>
 
-  <button class="totop" id="totop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Haut de page">↑</button>
+  <button class="totop" id="totop" onclick="scrollTo({top:0,behavior:'smooth'})" aria-label="Haut de page">↑</button>
 
   <script>
-    // Année automatique
-    document.getElementById('year').textContent = new Date().getFullYear();
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Bouton retour en haut
-    const totop = document.getElementById('totop');
-    window.addEventListener('scroll', () => {
-      totop.classList.toggle('show', window.scrollY > 300);
-    });
-
-    // Newsletter (démo — à relier à un vrai service type Mailchimp / Brevo)
-    function subscribe(){
-      const input  = document.getElementById('email');
-      const status = document.getElementById('cta-status');
-      const v = input.value.trim();
-      const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); // validation simple mais correcte
-      const show = (msg, type) => {
-        status.textContent = msg;
-        status.className = 'cta-status show ' + type;
-      };
-      if(!valid){ show('Entre une adresse e-mail valide 🙂', 'err'); input.focus(); return; }
-      show('Merci ! Tu es bien inscrit·e ✨', 'ok');
-      input.value = '';
-      // Pour rendre ça réel : envoie "v" vers ton service d'emailing via leur API/formulaire.
-    }
-    // Validation à la volée + envoi avec la touche Entrée
-    document.getElementById('email').addEventListener('keydown', e => {
-      if(e.key === 'Enter') subscribe();
-    });
-
-    // Effet de profondeur léger au mouvement (désactivé si reduced-motion)
-    if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-      document.addEventListener('mousemove', e => {
-        const x = (e.clientX / window.innerWidth - .5) * 10;
-        const y = (e.clientY / window.innerHeight - .5) * 10;
-        document.querySelector('.bg-gradient').style.transform = `translate(${x}px,${y}px)`;
+    /* Intro : nom lettre par lettre */
+    (function(){
+      const mark = document.getElementById('introMark');
+      if(!mark) return;
+      'Elaudace'.split('').forEach((ch,i)=>{
+        const s=document.createElement('span');
+        s.textContent=ch; s.style.animationDelay=(.25+i*.05)+'s';
+        mark.appendChild(s);
       });
+      const hide=()=>document.getElementById('intro').classList.add('done');
+      if(reduce){hide();} else {setTimeout(hide,1600);}
+    })();
+
+    /* Année + horloge live (Bruxelles) */
+    document.getElementById('year').textContent = new Date().getFullYear();
+    function tick(){
+      try{
+        document.getElementById('clock').textContent =
+          new Intl.DateTimeFormat('fr-BE',{hour:'2-digit',minute:'2-digit',timeZone:'Europe/Brussels'}).format(new Date());
+      }catch(e){}
     }
+    tick(); setInterval(tick,10000);
+
+    /* Mot qui tourne dans la phrase d'accroche */
+    (function(){
+      if(reduce) return;
+      const el=document.getElementById('rotator');
+      const words=['entraînements','lifestyle','mindset','discipline','énergie'];
+      let i=0;
+      setInterval(()=>{
+        i=(i+1)%words.length;
+        el.style.opacity=0;
+        setTimeout(()=>{el.textContent=words[i];el.style.opacity=1;},250);
+      },2200);
+      el.style.transition='opacity .25s ease';
+    })();
+
+    /* Révélation au scroll */
+    (function(){
+      const els=document.querySelectorAll('.reveal');
+      if(reduce||!('IntersectionObserver' in window)){els.forEach(e=>e.classList.add('in'));return;}
+      const io=new IntersectionObserver((ents)=>{
+        ents.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+      },{threshold:.15});
+      els.forEach(e=>io.observe(e));
+    })();
+
+    /* Halo + curseur */
+    if(!reduce && matchMedia('(hover:hover)').matches){
+      const spot=document.getElementById('spot');
+      addEventListener('mousemove',e=>{
+        spot.style.setProperty('--mx',e.clientX+'px');
+        spot.style.setProperty('--my',e.clientY+'px');
+      });
+      /* Bouton magnétique */
+      const mag=document.getElementById('magnet');
+      if(mag){
+        mag.addEventListener('mousemove',e=>{
+          const r=mag.getBoundingClientRect();
+          const x=(e.clientX-r.left-r.width/2)/r.width;
+          const y=(e.clientY-r.top-r.height/2)/r.height;
+          mag.style.transform=`translate(${x*10}px,${y*8}px)`;
+        });
+        mag.addEventListener('mouseleave',()=>mag.style.transform='');
+      }
+    }
+
+    /* Bouton haut */
+    const totop=document.getElementById('totop');
+    addEventListener('scroll',()=>totop.classList.toggle('show',scrollY>400));
+
+    /* Newsletter (démo — à relier à Brevo / Mailchimp) */
+    function subscribe(){
+      const input=document.getElementById('email');
+      const status=document.getElementById('cta-status');
+      const v=input.value.trim();
+      const valid=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+      const show=(m,t)=>{status.textContent=m;status.className='cta-status show '+t;};
+      if(!valid){show('Entre une adresse e-mail valide 🙂','err');input.focus();return;}
+      show('Merci ! Tu es bien inscrit·e ✨','ok');
+      input.value='';
+      // Pour rendre ça réel : envoie "v" vers ton service d'emailing (API/formulaire).
+    }
+    document.getElementById('email').addEventListener('keydown',e=>{if(e.key==='Enter')subscribe();});
   </script>
 </body>
 </html>
