@@ -177,9 +177,9 @@ a{color:inherit;text-decoration:none}
 .cell.ph{background:radial-gradient(120% 120% at 30% 15%,rgba(255,77,109,.14),var(--bg-soft))}
 .cell .phlbl{position:absolute;top:10px;left:12px;z-index:2;font-size:.62rem;letter-spacing:.18em;
   text-transform:uppercase;color:var(--gold);font-weight:700}
-.cell.big{grid-column:span 4;aspect-ratio:2/1.15}
-.cell.small{grid-column:span 2;aspect-ratio:1}
-.cell.wide{grid-column:span 3;aspect-ratio:3/2}
+.cell.portrait{grid-column:span 3;aspect-ratio:3/4}
+.cell.land{grid-column:span 3;aspect-ratio:3/4}
+.cell.full{grid-column:span 6;aspect-ratio:16/7}
 
 /* ============ NEWSLETTER ============ */
 .cta{margin-top:8px;padding:28px;border-radius:var(--radius);
@@ -238,8 +238,8 @@ footer .socials a:hover::after{width:100%}
   .sec-head{margin:34px 0 16px}
   .row .name{font-size:1.15rem}
   .row .meta{display:none}
-  .cell.big{grid-column:span 6}
-  .cell.wide{grid-column:span 3}
+  .cell.portrait,.cell.land,.cell.full{grid-column:span 6}
+  .cell.land{aspect-ratio:16/10}.cell.full{aspect-ratio:16/9}
   .cta{padding:22px}
   .cta-row{flex-direction:column}
   footer{flex-direction:column;align-items:flex-start}
@@ -275,15 +275,13 @@ footer .socials a:hover::after{width:100%}
 
     <!-- ===== HÉRO ===== -->
     <section class="hero">
-      <!-- ===== FOND DU HÉRO =====
-           Vide pour l'instant (dégradé). Pour mettre TA photo/vidéo de fille sportive,
-           décommente ce bloc et mets ton lien :
+      <!-- ===== FOND DU HÉRO (image : course au bord de mer) =====
+           ✏️ Pour une VIDÉO à la place : remplace la balise <img> par
+           <video autoplay muted loop playsinline poster="img-run.jpg"><source src="ta-video.mp4" type="video/mp4"></video> -->
       <div class="hero-media" aria-hidden="true">
-        <video autoplay muted loop playsinline poster=""><source src="https://videos.pexels.com/.../ta-video.mp4" type="video/mp4"></video>
-        OU une image :  <img src="ton-image.jpg" alt="">
+        <img src="img-run.jpg" alt="">
         <span class="hero-veil"></span>
       </div>
-      -->
 
       <div class="eyebrow">Fitness creator — Belgique</div>
       <!-- ✏️ Le grand nom -->
@@ -330,15 +328,11 @@ footer .socials a:hover::after{width:100%}
 
     <!-- ===== 03 · APERÇU ===== -->
     <div class="sec-head reveal"><span class="num">03</span><span class="label">Aperçu</span><span class="rule"></span></div>
-    <!-- ✏️ Galerie : cases placeholder (aucune photo aléatoire).
-         Pour mettre TES photos de filles sportives : ajoute une <img> dans la case, ex :
-         <div class="cell big"><img src="ton-image.jpg" alt=""></div> -->
+    <!-- ✏️ Galerie : tes photos. Pour en changer, remplace le src de chaque <img>. -->
     <div class="gallery reveal">
-      <div class="cell big ph"><span class="phlbl">Bientôt</span>🏋️</div>
-      <div class="cell small ph">🤸</div>
-      <div class="cell small ph">🧘</div>
-      <div class="cell wide ph">🏃</div>
-      <div class="cell wide ph"><span class="phlbl">Bientôt</span>🥗</div>
+      <div class="cell portrait"><img src="img-tennis.jpg" alt="Tennis au bord de mer" loading="lazy"></div>
+      <div class="cell land"><img src="img-gym.jpg" alt="Séance de musculation" loading="lazy"></div>
+      <div class="cell full"><img src="img-run.jpg" alt="Course au bord de mer" loading="lazy"></div>
     </div>
 
     <!-- ===== 04 · NEWSLETTER ===== -->
