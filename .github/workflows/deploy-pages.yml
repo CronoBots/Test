@@ -29,6 +29,8 @@ jobs:
 
       - name: Configuration de Pages
         uses: actions/configure-pages@v5
+        with:
+          enablement: true   # active Pages automatiquement si ce n'est pas déjà fait
 
       - name: Empaquetage du site (racine du dépôt)
         uses: actions/upload-pages-artifact@v3
