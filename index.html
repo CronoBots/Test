@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ton Nom — Fitness &amp; Lifestyle</title>
+<meta name="description" content="Fitness, lifestyle et contenu exclusif. Rejoins-moi.">
+<style>
+/* =================================================================
+   PERSONNALISATION RAPIDE — modifie uniquement les valeurs ci-dessous
+   ================================================================= */
+:root{
+  --accent:      #ff2d6f;   /* couleur principale (rose vif) */
+  --accent-2:    #ff7a18;   /* couleur secondaire (orange) */
+  --accent-3:    #00e0c6;   /* touche turquoise */
+  --bg-1:        #0b0b10;   /* fond sombre haut */
+  --bg-2:        #14101c;   /* fond sombre bas */
+  --card:        rgba(255,255,255,.05);
+  --card-border: rgba(255,255,255,.10);
+  --text:        #ffffff;
+  --muted:       #a39bb5;
+  --radius:      18px;
+  --maxw:        480px;
+}
+
+/* ============ RESET ============ */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter','Segoe UI',-apple-system,BlinkMacSystemFont,sans-serif;
+  color:var(--text);
+  background:var(--bg-1);
+  min-height:100vh;
+  overflow-x:hidden;
+  position:relative;
+}
+
+/* ============ FOND ANIMÉ ============ */
+.bg-gradient{
+  position:fixed;inset:0;z-index:-2;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,45,111,.25), transparent 45%),
+    radial-gradient(circle at 80% 30%, rgba(255,122,24,.20), transparent 45%),
+    radial-gradient(circle at 50% 90%, rgba(0,224,198,.18), transparent 45%),
+    linear-gradient(160deg,var(--bg-1),var(--bg-2));
+  animation:pulse 14s ease-in-out infinite;
+}
+@keyframes pulse{
+  0%,100%{filter:hue-rotate(0deg) brightness(1)}
+  50%{filter:hue-rotate(20deg) brightness(1.1)}
+}
+.bg-grain{
+  position:fixed;inset:0;z-index:-1;opacity:.04;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ============ CONTENEUR ============ */
+.wrap{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:48px 22px 64px;
+  display:flex;flex-direction:column;align-items:center;
+}
+
+/* ============ ANIMATIONS D'ENTRÉE ============ */
+.reveal{opacity:0;transform:translateY(24px);animation:rise .7s cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+.d1{animation-delay:.05s}.d2{animation-delay:.15s}.d3{animation-delay:.25s}
+.d4{animation-delay:.35s}.d5{animation-delay:.45s}.d6{animation-delay:.55s}
+.d7{animation-delay:.65s}.d8{animation-delay:.75s}
+
+/* ============ AVATAR ============ */
+.avatar-ring{
+  width:130px;height:130px;border-radius:50%;
+  padding:4px;margin-bottom:18px;position:relative;
+  background:conic-gradient(from 0deg,var(--accent),var(--accent-2),var(--accent-3),var(--accent));
+  animation:spin 6s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.avatar-ring::after{
+  content:"";position:absolute;inset:-6px;border-radius:50%;
+  background:conic-gradient(from 0deg,var(--accent),var(--accent-2),var(--accent-3),var(--accent));
+  filter:blur(16px);opacity:.5;z-index:-1;
+}
+.avatar{
+  width:100%;height:100%;border-radius:50%;
+  background:var(--bg-2);overflow:hidden;
+  display:flex;align-items:center;justify-content:center;font-size:46px;
+  animation:spin 6s linear infinite reverse; /* contre-rotation pour garder l'image droite */
+}
+.avatar img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* ============ EN-TÊTE ============ */
+.name{font-size:1.9rem;font-weight:800;letter-spacing:.5px;text-align:center}
+.badge{
+  display:inline-flex;align-items:center;gap:6px;margin-top:8px;
+  padding:5px 14px;border-radius:100px;font-size:.78rem;font-weight:600;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2));
+}
+.tagline{color:var(--muted);text-align:center;margin-top:14px;line-height:1.6;font-size:1rem;max-width:340px}
+
+/* ============ STATS ============ */
+.stats{display:flex;gap:10px;margin:26px 0 8px;width:100%}
+.stat{
+  flex:1;background:var(--card);border:1px solid var(--card-border);
+  border-radius:14px;padding:14px 8px;text-align:center;backdrop-filter:blur(8px);
+}
+.stat b{display:block;font-size:1.25rem;font-weight:800;
+  background:linear-gradient(90deg,var(--accent),var(--accent-3));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.stat span{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+
+/* ============ SECTIONS ============ */
+.section-title{
+  align-self:flex-start;margin:32px 0 14px;font-size:.8rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);
+}
+
+/* ============ LIENS ============ */
+.links{display:flex;flex-direction:column;gap:13px;width:100%}
+.link{
+  display:flex;align-items:center;gap:15px;
+  background:var(--card);border:1px solid var(--card-border);
+  border-radius:var(--radius);padding:16px 20px;
+  color:var(--text);text-decoration:none;font-weight:600;
+  backdrop-filter:blur(8px);position:relative;overflow:hidden;
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+.link::before{
+  content:"";position:absolute;inset:0;opacity:0;transition:opacity .2s ease;
+  background:linear-gradient(90deg,rgba(255,45,111,.14),rgba(255,122,24,.10));
+}
+.link:hover{transform:translateY(-3px);border-color:var(--accent);
+  box-shadow:0 12px 30px rgba(0,0,0,.4)}
+.link:hover::before{opacity:1}
+.link .ico{font-size:1.4rem;width:30px;text-align:center;flex-shrink:0;position:relative;z-index:1}
+.link .body{flex:1;position:relative;z-index:1}
+.link .body .t{display:block;font-size:1.02rem}
+.link .body .s{display:block;font-size:.78rem;color:var(--muted);font-weight:500;margin-top:2px}
+.link .arrow{opacity:.4;font-size:1.2rem;position:relative;z-index:1;transition:transform .18s ease,opacity .18s ease}
+.link:hover .arrow{opacity:1;transform:translateX(4px)}
+
+.link.featured{
+  background:linear-gradient(120deg,var(--accent),var(--accent-2));
+  border:none;
+}
+.link.featured .body .s{color:rgba(255,255,255,.85)}
+.link.featured::after{
+  content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);
+  transform:skewX(-20deg);animation:shine 3.5s ease-in-out infinite;
+}
+@keyframes shine{0%{left:-60%}40%,100%{left:140%}}
+
+/* ============ GALERIE ============ */
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;width:100%}
+.gallery .cell{
+  aspect-ratio:1;border-radius:12px;overflow:hidden;
+  background:var(--card);border:1px solid var(--card-border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.5rem;color:var(--muted);cursor:pointer;
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+.gallery .cell:hover{transform:scale(1.04);box-shadow:0 8px 20px rgba(0,0,0,.4)}
+.gallery .cell img{width:100%;height:100%;object-fit:cover}
+
+/* ============ NEWSLETTER / CONTACT ============ */
+.cta-box{
+  width:100%;margin-top:14px;padding:20px;border-radius:var(--radius);
+  background:var(--card);border:1px solid var(--card-border);text-align:center;backdrop-filter:blur(8px);
+}
+.cta-box p{color:var(--muted);font-size:.92rem;margin-bottom:14px;line-height:1.5}
+.cta-row{display:flex;gap:8px}
+.cta-row input{
+  flex:1;padding:12px 14px;border-radius:12px;border:1px solid var(--card-border);
+  background:rgba(0,0,0,.25);color:var(--text);font-size:.92rem;outline:none;
+}
+.cta-row input:focus{border-color:var(--accent)}
+.cta-row button{
+  padding:12px 18px;border:none;border-radius:12px;font-weight:700;cursor:pointer;color:#fff;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:transform .15s ease;
+}
+.cta-row button:active{transform:scale(.96)}
+
+/* ============ FOOTER ============ */
+footer{margin-top:38px;text-align:center;color:var(--muted);font-size:.78rem;line-height:1.8}
+footer .social{display:flex;gap:16px;justify-content:center;margin-bottom:12px;font-size:1.3rem}
+footer .social a{color:var(--muted);text-decoration:none;transition:color .15s ease,transform .15s ease;display:inline-block}
+footer .social a:hover{color:var(--accent);transform:translateY(-2px)}
+
+/* ============ BOUTON HAUT DE PAGE ============ */
+.totop{
+  position:fixed;right:18px;bottom:18px;width:44px;height:44px;border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;border:none;
+  font-size:1.2rem;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .25s ease,transform .2s ease;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.4);z-index:10;
+}
+.totop.show{opacity:1;pointer-events:auto}
+.totop:hover{transform:translateY(-3px)}
+
+@media (max-width:380px){
+  .name{font-size:1.6rem}
+  .stat b{font-size:1.05rem}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+  <div class="bg-gradient"></div>
+  <div class="bg-grain"></div>
+
+  <main class="wrap">
+
+    <!-- ================= AVATAR =================
+         Remplace l'emoji par : <img src="photo.jpg" alt="Ton Nom"> -->
+    <div class="avatar-ring reveal d1">
+      <div class="avatar">💪</div>
+    </div>
+
+    <!-- ================= EN-TÊTE ================= -->
+    <h1 class="name reveal d2">Ton Nom</h1>
+    <span class="badge reveal d2">⚡ Fitness Creator</span>
+    <p class="tagline reveal d3">
+      Entraînements, lifestyle &amp; contenu exclusif.<br>
+      Rejoins-moi dans les coulisses 💫
+    </p>
+
+    <!-- ================= STATS (facultatif, modifie ou supprime) ================= -->
+    <div class="stats reveal d3">
+      <div class="stat"><b>—</b><span>Posts</span></div>
+      <div class="stat"><b>—</b><span>Abonnés</span></div>
+      <div class="stat"><b>5★</b><span>Avis</span></div>
+    </div>
+
+    <!-- ================= LIEN PRINCIPAL ================= -->
+    <div class="section-title reveal d4">À ne pas manquer</div>
+    <div class="links">
+      <a class="link featured reveal d4" href="#" target="_blank" rel="noopener">
+        <span class="ico">⭐</span>
+        <span class="body"><span class="t">Mon contenu exclusif</span><span class="s">Photos, vidéos &amp; plus — accès direct</span></span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <!-- ================= RÉSEAUX ================= -->
+    <div class="section-title reveal d5">Retrouve-moi</div>
+    <div class="links">
+      <a class="link reveal d5" href="#" target="_blank" rel="noopener">
+        <span class="ico">📷</span>
+        <span class="body"><span class="t">Instagram</span><span class="s">Mon quotidien &amp; mes entraînements</span></span>
+        <span class="arrow">→</span>
+      </a>
+      <a class="link reveal d6" href="#" target="_blank" rel="noopener">
+        <span class="ico">🎵</span>
+        <span class="body"><span class="t">TikTok</span><span class="s">Mes vidéos &amp; routines</span></span>
+        <span class="arrow">→</span>
+      </a>
+      <a class="link reveal d6" href="#" target="_blank" rel="noopener">
+        <span class="ico">🐦</span>
+        <span class="body"><span class="t">Twitter / X</span><span class="s">Actus &amp; teasers</span></span>
+        <span class="arrow">→</span>
+      </a>
+      <a class="link reveal d7" href="#" target="_blank" rel="noopener">
+        <span class="ico">✈️</span>
+        <span class="body"><span class="t">Telegram</span><span class="s">Ma communauté privée</span></span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <!-- ================= GALERIE (remplace les emojis par des <img>) ================= -->
+    <div class="section-title reveal d7">Aperçu</div>
+    <div class="gallery reveal d7">
+      <div class="cell">🏋️</div>
+      <div class="cell">🤸</div>
+      <div class="cell">🧘</div>
+      <div class="cell">🥗</div>
+      <div class="cell">🏃</div>
+      <div class="cell">💪</div>
+    </div>
+
+    <!-- ================= NEWSLETTER / CONTACT ================= -->
+    <div class="section-title reveal d8">Reste informé·e</div>
+    <div class="cta-box reveal d8">
+      <p>Laisse ton e-mail pour être prévenu·e des nouveautés.</p>
+      <div class="cta-row">
+        <input type="email" id="email" placeholder="ton@email.com" aria-label="E-mail">
+        <button onclick="subscribe()">OK</button>
+      </div>
+    </div>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="reveal d8">
+      <div class="social">
+        <a href="#" target="_blank" rel="noopener" aria-label="Instagram">📷</a>
+        <a href="#" target="_blank" rel="noopener" aria-label="TikTok">🎵</a>
+        <a href="#" target="_blank" rel="noopener" aria-label="Twitter">🐦</a>
+        <a href="#" target="_blank" rel="noopener" aria-label="Telegram">✈️</a>
+      </div>
+      © <span id="year"></span> Ton Nom — Tous droits réservés
+    </footer>
+
+  </main>
+
+  <button class="totop" id="totop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Haut de page">↑</button>
+
+  <script>
+    // Année automatique
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Bouton retour en haut
+    const totop = document.getElementById('totop');
+    window.addEventListener('scroll', () => {
+      totop.classList.toggle('show', window.scrollY > 300);
+    });
+
+    // Newsletter (démo — à relier à un vrai service type Mailchimp / Brevo)
+    function subscribe(){
+      const v = document.getElementById('email').value.trim();
+      if(!v || !v.includes('@')){ alert('Entre une adresse e-mail valide 🙂'); return; }
+      alert('Merci ! Tu es bien inscrit·e ✨');
+      document.getElementById('email').value='';
+      // Pour rendre ça réel : envoie "v" vers ton service d'emailing via leur API/formulaire.
+    }
+
+    // Effet de profondeur léger au mouvement (désactivé si reduced-motion)
+    if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      document.addEventListener('mousemove', e => {
+        const x = (e.clientX / window.innerWidth - .5) * 10;
+        const y = (e.clientY / window.innerHeight - .5) * 10;
+        document.querySelector('.bg-gradient').style.transform = `translate(${x}px,${y}px)`;
+      });
+    }
+  </script>
+</body>
+</html>
