@@ -447,7 +447,7 @@ footer .copy{letter-spacing:.02em}
   <button class="sound" id="soundBtn" type="button" aria-pressed="false" aria-label="Activer la musique">
     <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
   </button>
-  <audio id="bgm" src="elaudace.mp3" loop preload="none"></audio>
+  <audio id="bgm" src="elaudace.mp3" loop preload="auto" autoplay>
 
   <script>
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -564,9 +564,11 @@ footer .copy{letter-spacing:.02em}
         e.stopPropagation();
         if(bgm.paused){ userPaused=false; play(); } else { userPaused=true; pause(); }
       });
-      /* Démarrage au tout premier geste (politique navigateur sur l'autoplay) */
+      /* 1) Tentative d'autoplay immédiat (joue si le navigateur l'autorise) */
+      play();
+      /* 2) Repli : démarrage au tout premier geste (politique navigateur sur l'autoplay) */
       const start=()=>{ if(!userPaused && bgm.paused) play(); };
-      ['pointerdown','touchstart','keydown'].forEach(ev=>addEventListener(ev,start,{once:true,passive:true}));
+      ['pointerdown','touchstart','keydown','mousemove','scroll'].forEach(ev=>addEventListener(ev,start,{once:true,passive:true}));
     })();
   </script>
 </body>
