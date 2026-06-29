@@ -106,8 +106,8 @@ a{color:inherit;text-decoration:none}
 .hero-veil{position:absolute;inset:0;
   background:linear-gradient(180deg,rgba(10,9,8,.35),rgba(10,9,8,.78) 70%,var(--bg));}
 .eyebrow{font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
-.bigname{position:relative;font-weight:800;line-height:.86;letter-spacing:-.05em;
-  font-size:clamp(3.6rem,21vw,8.5rem);text-transform:uppercase}
+.bigname{position:relative;font-weight:800;line-height:.86;letter-spacing:-.045em;
+  font-size:clamp(2.4rem,15vw,7rem);text-transform:uppercase;max-width:100%;overflow-wrap:break-word}
 .bigname .fill{background:linear-gradient(92deg,var(--ink) 30%,var(--coral) 75%,var(--coral-2));
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .hero .lede{margin-top:22px;max-width:30ch;color:var(--muted);font-size:1.02rem}
@@ -227,10 +227,22 @@ footer .socials a:hover::after{width:100%}
 
 /* ============ RESPONSIVE ============ */
 @media (max-width:520px){
+  .wrap{padding:22px 16px 54px}
+  .hero{padding:40px 18px 32px}
+  .bigname{font-size:clamp(2.4rem,16.5vw,4.4rem)}
+  .hero .lede{font-size:.96rem}
+  .featured{padding:24px}
+  .sec-head{margin:34px 0 16px}
+  .row .name{font-size:1.15rem}
   .row .meta{display:none}
   .cell.big{grid-column:span 6}
   .cell.wide{grid-column:span 3}
+  .cta{padding:22px}
   .cta-row{flex-direction:column}
+  footer{flex-direction:column;align-items:flex-start}
+}
+@media (max-width:360px){
+  .bigname{font-size:15vw;letter-spacing:-.03em}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
