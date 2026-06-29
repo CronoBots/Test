@@ -252,6 +252,21 @@ footer .copy{letter-spacing:.02em}
 .totop.show{opacity:1;pointer-events:auto}
 .totop:hover{transform:translateY(-3px)}
 
+/* ============ MUSIQUE DE FOND ============ */
+.sound{position:fixed;left:18px;bottom:18px;width:46px;height:46px;border-radius:50%;
+  background:var(--bg-soft);border:1px solid var(--line);color:var(--ink);cursor:pointer;
+  display:grid;place-items:center;z-index:20;box-shadow:0 8px 24px rgba(0,0,0,.5);
+  transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+.sound:hover{transform:translateY(-3px);border-color:var(--coral)}
+.sound .bars{display:flex;gap:2.5px;align-items:center;height:16px}
+.sound .bars i{width:3px;height:5px;background:var(--muted);border-radius:2px;transition:background .2s}
+.sound.playing{border-color:var(--coral);box-shadow:0 8px 24px rgba(255,77,109,.3)}
+.sound.playing .bars i{background:var(--coral);animation:eq .9s ease-in-out infinite}
+.sound.playing .bars i:nth-child(2){animation-delay:.18s}
+.sound.playing .bars i:nth-child(3){animation-delay:.36s}
+.sound.playing .bars i:nth-child(4){animation-delay:.54s}
+@keyframes eq{0%,100%{height:5px}50%{height:16px}}
+
 /* ============ ANIMATIONS DE RÉVÉLATION ============ */
 .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
 .reveal.in{opacity:1;transform:none}
@@ -420,6 +435,12 @@ footer .copy{letter-spacing:.02em}
 
   <button class="totop" id="totop" type="button" aria-label="Haut de page">↑</button>
 
+  <!-- ===== MUSIQUE DE FOND ===== -->
+  <button class="sound" id="soundBtn" type="button" aria-pressed="false" aria-label="Activer la musique">
+    <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+  </button>
+  <audio id="bgm" src="elaudace.mp3" loop preload="none"></audio>
+
   <script>
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -518,6 +539,27 @@ footer .copy{letter-spacing:.02em}
       // Pour rendre ça réel : envoie "v" vers ton service d'emailing (API/formulaire).
     }
     document.getElementById('email').addEventListener('keydown',e=>{if(e.key==='Enter')subscribe();});
+
+    /* Musique de fond */
+    (function(){
+      const bgm=document.getElementById('bgm'), btn=document.getElementById('soundBtn');
+      if(!bgm||!btn) return;
+      bgm.volume=0.35;
+      let userPaused=false;
+      const play=()=>bgm.play().then(()=>{
+        btn.classList.add('playing'); btn.setAttribute('aria-pressed','true');
+        btn.setAttribute('aria-label','Couper la musique');
+      }).catch(()=>{});
+      const pause=()=>{ bgm.pause(); btn.classList.remove('playing');
+        btn.setAttribute('aria-pressed','false'); btn.setAttribute('aria-label','Activer la musique'); };
+      btn.addEventListener('click',e=>{
+        e.stopPropagation();
+        if(bgm.paused){ userPaused=false; play(); } else { userPaused=true; pause(); }
+      });
+      /* Démarrage au tout premier geste (politique navigateur sur l'autoplay) */
+      const start=()=>{ if(!userPaused && bgm.paused) play(); };
+      ['pointerdown','touchstart','keydown'].forEach(ev=>addEventListener(ev,start,{once:true,passive:true}));
+    })();
   </script>
 </body>
 </html>
