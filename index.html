@@ -174,6 +174,9 @@ a{color:inherit;text-decoration:none}
 .cell::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.35));
   opacity:0;transition:opacity .3s;pointer-events:none}
 .cell:hover::after{opacity:1}
+.cell.ph{background:radial-gradient(120% 120% at 30% 15%,rgba(255,77,109,.14),var(--bg-soft))}
+.cell .phlbl{position:absolute;top:10px;left:12px;z-index:2;font-size:.62rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--gold);font-weight:700}
 .cell.big{grid-column:span 4;aspect-ratio:2/1.15}
 .cell.small{grid-column:span 2;aspect-ratio:1}
 .cell.wide{grid-column:span 3;aspect-ratio:3/2}
@@ -272,17 +275,15 @@ footer .socials a:hover::after{width:100%}
 
     <!-- ===== HÉRO ===== -->
     <section class="hero">
-      <!-- ===== FOND ANIMÉ DU HÉRO =====
-           ✏️ POUR METTRE UNE VIDÉO PLUS TARD : remplace le bloc <img> ci-dessous par :
-           <video autoplay muted loop playsinline poster="">
-             <source src="https://videos.pexels.com/.../ta-video.mp4" type="video/mp4">
-           </video>
-           (mets le lien direct .mp4 obtenu via "Free Download" sur Pexels) -->
+      <!-- ===== FOND DU HÉRO =====
+           Vide pour l'instant (dégradé). Pour mettre TA photo/vidéo de fille sportive,
+           décommente ce bloc et mets ton lien :
       <div class="hero-media" aria-hidden="true">
-        <img src="https://loremflickr.com/1000/1300/fitness,athletic,gym,woman?lock=21"
-             alt="" loading="eager" onerror="this.remove()">
+        <video autoplay muted loop playsinline poster=""><source src="https://videos.pexels.com/.../ta-video.mp4" type="video/mp4"></video>
+        OU une image :  <img src="ton-image.jpg" alt="">
         <span class="hero-veil"></span>
       </div>
+      -->
 
       <div class="eyebrow">Fitness creator — Belgique</div>
       <!-- ✏️ Le grand nom -->
@@ -329,15 +330,15 @@ footer .socials a:hover::after{width:100%}
 
     <!-- ===== 03 · APERÇU ===== -->
     <div class="sec-head reveal"><span class="num">03</span><span class="label">Aperçu</span><span class="rule"></span></div>
-    <!-- ✏️ Galerie : images placeholder fitness (aléatoires, thématiques).
-         Pour mettre TES photos : remplace le src par l'URL de ton image.
-         Si une image ne charge pas, la case garde son emoji de secours. -->
+    <!-- ✏️ Galerie : cases placeholder (aucune photo aléatoire).
+         Pour mettre TES photos de filles sportives : ajoute une <img> dans la case, ex :
+         <div class="cell big"><img src="ton-image.jpg" alt=""></div> -->
     <div class="gallery reveal">
-      <div class="cell big">🏋️<img src="https://loremflickr.com/900/520/fitness,athletic,abs,woman?lock=31" alt="" loading="lazy" onerror="this.remove()"></div>
-      <div class="cell small">🤸<img src="https://loremflickr.com/460/460/gym,fit,athletic?lock=32" alt="" loading="lazy" onerror="this.remove()"></div>
-      <div class="cell small">🧘<img src="https://loremflickr.com/460/460/yoga,fitness,body?lock=33" alt="" loading="lazy" onerror="this.remove()"></div>
-      <div class="cell wide">🏃<img src="https://loremflickr.com/520/350/running,fitness,athletic?lock=34" alt="" loading="lazy" onerror="this.remove()"></div>
-      <div class="cell wide">🥗<img src="https://loremflickr.com/520/350/workout,gym,body?lock=35" alt="" loading="lazy" onerror="this.remove()"></div>
+      <div class="cell big ph"><span class="phlbl">Bientôt</span>🏋️</div>
+      <div class="cell small ph">🤸</div>
+      <div class="cell small ph">🧘</div>
+      <div class="cell wide ph">🏃</div>
+      <div class="cell wide ph"><span class="phlbl">Bientôt</span>🥗</div>
     </div>
 
     <!-- ===== 04 · NEWSLETTER ===== -->
