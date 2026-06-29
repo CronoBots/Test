@@ -13,12 +13,19 @@
 <meta property="og:title" content="Elaudace — Fitness · Lifestyle">
 <meta property="og:description" content="Fitness, lifestyle & contenu exclusif. Tous mes liens, un seul endroit.">
 <meta property="og:url" content="https://cronobots.github.io/Test/">
+<meta property="og:image" content="https://cronobots.github.io/Test/img-run.jpg">
+<meta property="og:image:width" content="1402">
+<meta property="og:image:height" content="1122">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Elaudace — Fitness · Lifestyle">
 <meta name="twitter:description" content="Fitness, lifestyle & contenu exclusif. Tous mes liens, un seul endroit.">
+<meta name="twitter:image" content="https://cronobots.github.io/Test/img-run.jpg">
 
 <!-- Favicon emoji (aucun fichier à uploader) -->
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E">
+
+<!-- Préchargement de l'image du héro (chargement perçu plus rapide) -->
+<link rel="preload" as="image" href="img-run.jpg" fetchpriority="high">
 
 <style>
 /* =================================================================
@@ -279,7 +286,7 @@ footer .socials a:hover::after{width:100%}
            ✏️ Pour une VIDÉO à la place : remplace la balise <img> par
            <video autoplay muted loop playsinline poster="img-run.jpg"><source src="ta-video.mp4" type="video/mp4"></video> -->
       <div class="hero-media" aria-hidden="true">
-        <img src="img-run.jpg" alt="">
+        <img src="img-run.jpg" alt="" width="1402" height="1122" fetchpriority="high" decoding="async">
         <span class="hero-veil"></span>
       </div>
 
@@ -330,11 +337,11 @@ footer .socials a:hover::after{width:100%}
     <div class="sec-head reveal"><span class="num">03</span><span class="label">Aperçu</span><span class="rule"></span></div>
     <!-- ✏️ Galerie : tes photos. Pour en changer, remplace le src de chaque <img>. -->
     <div class="gallery reveal">
-      <div class="cell full"><img src="img-pool.jpg" alt="Au bord de la piscine" loading="lazy"></div>
-      <div class="cell land"><img src="img-volley.jpg" alt="Beach-volley" loading="lazy"></div>
-      <div class="cell land"><img src="img-cycle.jpg" alt="Cyclisme sur la côte" loading="lazy"></div>
-      <div class="cell land"><img src="img-gym.jpg" alt="Séance de musculation" loading="lazy"></div>
-      <div class="cell land"><img src="img-run.jpg" alt="Course au bord de mer" loading="lazy"></div>
+      <div class="cell full"><img src="img-pool.jpg" alt="Au bord de la piscine" loading="lazy" decoding="async"></div>
+      <div class="cell land"><img src="img-volley.jpg" alt="Beach-volley" loading="lazy" decoding="async"></div>
+      <div class="cell land"><img src="img-cycle.jpg" alt="Cyclisme sur la côte" loading="lazy" decoding="async"></div>
+      <div class="cell land"><img src="img-gym.jpg" alt="Séance de musculation" loading="lazy" decoding="async"></div>
+      <div class="cell land"><img src="img-run.jpg" alt="Course au bord de mer" loading="lazy" decoding="async"></div>
     </div>
 
     <!-- ===== 04 · NEWSLETTER ===== -->
@@ -369,7 +376,7 @@ footer .socials a:hover::after{width:100%}
     </footer>
   </main>
 
-  <button class="totop" id="totop" onclick="scrollTo({top:0,behavior:'smooth'})" aria-label="Haut de page">↑</button>
+  <button class="totop" id="totop" type="button" aria-label="Haut de page">↑</button>
 
   <script>
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -443,7 +450,12 @@ footer .socials a:hover::after{width:100%}
 
     /* Bouton haut */
     const totop=document.getElementById('totop');
-    addEventListener('scroll',()=>totop.classList.toggle('show',scrollY>400));
+    const onScroll=()=>totop.classList.toggle('show',(window.scrollY||document.documentElement.scrollTop||0)>400);
+    addEventListener('scroll',onScroll,{passive:true}); onScroll();
+    totop.addEventListener('click',()=>{
+      try{ window.scrollTo({top:0,left:0,behavior:reduce?'auto':'smooth'}); }
+      catch(e){ window.scrollTo(0,0); document.documentElement.scrollTop=0; }
+    });
 
     /* Newsletter (démo — à relier à Brevo / Mailchimp) */
     function subscribe(){
