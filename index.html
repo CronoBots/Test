@@ -571,5 +571,31 @@ footer .copy{letter-spacing:.02em}
       ['pointerdown','touchstart','keydown','mousemove','scroll'].forEach(ev=>addEventListener(ev,start,{once:true,passive:true}));
     })();
   </script>
+
+  <!-- ===== STATISTIQUES — GoatCounter (léger, respectueux de la vie privée, sans cookies) ===== -->
+  <script data-goatcounter="https://unscoop.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+  <!-- Suivi des clics importants : bouton VIP + réseaux sociaux -->
+  <script>
+    addEventListener('load',function(){
+      var ev=function(path,title){
+        if(window.goatcounter&&window.goatcounter.count){
+          window.goatcounter.count({path:'clic-'+path,title:title||path,event:true});
+        }
+      };
+      // Bouton « Mon contenu exclusif »
+      var vip=document.getElementById('magnet');
+      if(vip) vip.addEventListener('click',function(){ev('contenu-exclusif','Clic contenu exclusif');});
+      // Liens réseaux (section 02) + logos du footer
+      document.querySelectorAll('.rows .row, footer .socials a').forEach(function(a){
+        a.addEventListener('click',function(){
+          var n=(a.querySelector('.name')||a).getAttribute('aria-label')
+                || (a.querySelector('.name')&&a.querySelector('.name').textContent)
+                || a.getAttribute('aria-label') || 'lien';
+          ev(n.trim().toLowerCase().replace(/\s+/g,'-'),'Clic '+n.trim());
+        });
+      });
+    });
+  </script>
 </body>
 </html>
