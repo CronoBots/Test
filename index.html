@@ -145,10 +145,10 @@ a{color:inherit;text-decoration:none}
 .featured .fbg::after{content:"";position:absolute;inset:0;
   background:linear-gradient(120deg,rgba(10,9,8,.93) 16%,rgba(10,9,8,.55) 58%,rgba(255,77,109,.32))}
 .featured>*:not(.fbg):not(.sheen){position:relative;z-index:2}
-.featured .badge-vip{position:absolute;top:16px;right:16px;z-index:3;
+.featured .badge-vip{display:inline-flex;align-items:center;gap:6px;margin-bottom:16px;
   background:rgba(0,0,0,.42);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.22);
-  color:#fff;font-size:.7rem;font-weight:700;letter-spacing:.03em;padding:6px 12px;border-radius:100px}
-.featured .kicker{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+  color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.03em;padding:7px 14px;border-radius:100px}
+.featured .kicker{display:block;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
 .featured h3{font-size:clamp(1.7rem,6.4vw,2.4rem);font-weight:800;letter-spacing:-.02em;margin:12px 0 8px;line-height:1.04}
 .featured p{color:rgba(245,239,231,.82);max-width:38ch}
 .featured .perks{list-style:none;margin:18px 0 4px;display:grid;gap:9px}
