@@ -134,20 +134,35 @@ a{color:inherit;text-decoration:none}
 
 /* ============ CARTE FEATURED ============ */
 .featured{display:block;position:relative;overflow:hidden;border-radius:var(--radius);
-  padding:30px;background:
-    linear-gradient(135deg,rgba(255,77,109,.16),rgba(255,122,89,.06)),var(--bg-soft);
-  border:1px solid rgba(255,77,109,.30);
+  padding:30px;background:var(--bg-soft);border:1px solid rgba(255,77,109,.30);
+  box-shadow:0 12px 40px rgba(255,77,109,.14);
   transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s ease;
-  will-change:transform}
-.featured:hover{box-shadow:0 24px 60px rgba(255,77,109,.18)}
+  will-change:transform;animation:pulseGlow 3.4s ease-in-out infinite}
+@keyframes pulseGlow{0%,100%{box-shadow:0 12px 40px rgba(255,77,109,.12)}50%{box-shadow:0 14px 62px rgba(255,77,109,.32)}}
+.featured:hover{transform:translateY(-2px);box-shadow:0 26px 66px rgba(255,77,109,.32)}
+.featured .fbg{position:absolute;inset:0;z-index:0}
+.featured .fbg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 26%;opacity:.42}
+.featured .fbg::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(120deg,rgba(10,9,8,.93) 16%,rgba(10,9,8,.55) 58%,rgba(255,77,109,.32))}
+.featured>*:not(.fbg):not(.sheen){position:relative;z-index:2}
+.featured .badge-vip{position:absolute;top:16px;right:16px;z-index:3;
+  background:rgba(0,0,0,.42);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.22);
+  color:#fff;font-size:.7rem;font-weight:700;letter-spacing:.03em;padding:6px 12px;border-radius:100px}
 .featured .kicker{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
-.featured h3{font-size:clamp(1.6rem,6vw,2.3rem);font-weight:800;letter-spacing:-.02em;margin:12px 0 8px;line-height:1.04}
-.featured p{color:var(--muted);max-width:34ch}
+.featured h3{font-size:clamp(1.7rem,6.4vw,2.4rem);font-weight:800;letter-spacing:-.02em;margin:12px 0 8px;line-height:1.04}
+.featured p{color:rgba(245,239,231,.82);max-width:38ch}
+.featured .perks{list-style:none;margin:18px 0 4px;display:grid;gap:9px}
+.featured .perks li{display:flex;align-items:center;gap:11px;font-size:.93rem;font-weight:500;color:var(--ink)}
+.featured .perks li::before{content:"";width:19px;height:19px;border-radius:50%;flex-shrink:0;
+  background:var(--coral) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 13l4 4L19 7'/%3E%3C/svg%3E") center/12px no-repeat}
 .featured .go{margin-top:22px;display:inline-flex;align-items:center;gap:12px;
-  font-weight:700;font-size:.95rem}
-.featured .go .circle{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;
-  background:var(--coral);color:#fff;font-size:1.1rem;transition:transform .3s ease}
-.featured:hover .go .circle{transform:translateX(6px) rotate(-8deg)}
+  background:var(--ink);color:var(--bg);padding:13px 14px 13px 22px;border-radius:100px;
+  font-weight:800;font-size:.98rem;transition:transform .2s ease,box-shadow .2s ease}
+.featured:hover .go{box-shadow:0 12px 28px rgba(0,0,0,.45)}
+.featured .go .circle{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;
+  background:var(--coral);color:#fff;font-size:1rem;transition:transform .3s ease}
+.featured:hover .go .circle{transform:translateX(4px) rotate(-8deg)}
+.featured .reassure{display:block;margin-top:14px;font-size:.77rem;color:rgba(245,239,231,.62)}
 .featured .sheen{position:absolute;top:0;left:-70%;width:45%;height:100%;
   background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);
   transform:skewX(-18deg);animation:sheen 4.5s ease-in-out infinite}
@@ -225,6 +240,10 @@ footer .socials a:hover{color:#fff;border-color:transparent;transform:translateY
   background:linear-gradient(135deg,var(--coral),var(--coral-2));box-shadow:0 10px 26px rgba(255,77,109,.28)}
 footer .copy{letter-spacing:.02em}
 
+/* ============ BARRE DE PROGRESSION ============ */
+.progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;
+  background:linear-gradient(90deg,var(--coral),var(--gold));box-shadow:0 0 12px rgba(255,77,109,.5)}
+
 /* ============ BOUTON HAUT ============ */
 .totop{position:fixed;right:18px;bottom:18px;width:46px;height:46px;border-radius:50%;
   background:var(--ink);color:var(--bg);border:none;font-size:1.1rem;cursor:pointer;
@@ -264,6 +283,7 @@ footer .copy{letter-spacing:.02em}
 </style>
 </head>
 <body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
   <div class="bg-fx"></div>
   <div class="grain"></div>
   <div class="spotlight" id="spot"></div>
@@ -309,11 +329,19 @@ footer .copy{letter-spacing:.02em}
     <div class="sec-head reveal"><span class="num">01</span><span class="label">L'exclu</span><span class="rule"></span></div>
     <!-- ✏️ Lien principal : remplace le href="#" -->
     <a class="featured reveal" id="magnet" href="#" target="_blank" rel="noopener">
+      <span class="fbg" aria-hidden="true"><picture><source srcset="img-pool.webp" type="image/webp"><img src="img-pool.jpg" alt="" loading="lazy" decoding="async"></picture></span>
       <span class="sheen"></span>
-      <span class="kicker">Accès privé</span>
+      <span class="badge-vip">🔥 Le plus demandé</span>
+      <span class="kicker">Accès privé · VIP</span>
       <h3>Mon contenu exclusif</h3>
-      <p>Photos, vidéos & coulisses. Le meilleur de mon univers, en accès direct.</p>
+      <p>Le meilleur de mon univers, en accès direct et privé — comme nulle part ailleurs.</p>
+      <ul class="perks">
+        <li>Photos &amp; vidéos exclusives</li>
+        <li>Du nouveau contenu chaque semaine</li>
+        <li>Accès direct, en privé avec moi</li>
+      </ul>
       <span class="go">Rejoindre maintenant <span class="circle">↗</span></span>
+      <span class="reassure">Sans engagement · Annulation à tout moment</span>
     </a>
 
     <!-- ===== 02 · RÉSEAUX ===== -->
@@ -464,7 +492,13 @@ footer .copy{letter-spacing:.02em}
 
     /* Bouton haut */
     const totop=document.getElementById('totop');
-    const onScroll=()=>totop.classList.toggle('show',(window.scrollY||document.documentElement.scrollTop||0)>400);
+    const prog=document.getElementById('progress');
+    const onScroll=()=>{
+      const h=document.documentElement, sc=window.scrollY||h.scrollTop||0;
+      totop.classList.toggle('show',sc>400);
+      const max=h.scrollHeight-h.clientHeight;
+      if(prog) prog.style.width=(max>0?(sc/max*100):0)+'%';
+    };
     addEventListener('scroll',onScroll,{passive:true}); onScroll();
     totop.addEventListener('click',()=>{
       try{ window.scrollTo({top:0,left:0,behavior:reduce?'auto':'smooth'}); }
