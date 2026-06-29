@@ -243,6 +243,9 @@ footer .socials a svg{width:21px;height:21px;fill:currentColor;display:block}
 footer .socials a:hover{color:#fff;border-color:transparent;transform:translateY(-4px);
   background:linear-gradient(135deg,var(--coral),var(--coral-2));box-shadow:0 10px 26px rgba(255,77,109,.28)}
 footer .copy{letter-spacing:.02em}
+.viewcount{display:inline-flex;align-items:center;gap:7px;font-size:.74rem;letter-spacing:.04em;color:var(--muted)}
+.viewcount svg{width:14px;height:14px;fill:currentColor;opacity:.8}
+.viewcount b{color:var(--gold);font-weight:700;font-variant-numeric:tabular-nums}
 
 /* ============ BARRE DE PROGRESSION ============ */
 .progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;
@@ -438,6 +441,10 @@ footer .copy{letter-spacing:.02em}
         </a>
       </nav>
       <span class="copy">© <span id="year"></span> Elaudace — Tous droits réservés</span>
+      <span class="viewcount" id="viewcount" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5C6.5 5 2.7 8.3 1 12c1.7 3.7 5.5 7 11 7s9.3-3.3 11-7c-1.7-3.7-5.5-7-11-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-8a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg>
+        <span><b id="viewcount-n">—</b> visites</span>
+      </span>
     </footer>
   </main>
 
@@ -596,6 +603,16 @@ footer .copy{letter-spacing:.02em}
         });
       });
     });
+  </script>
+  <!-- Compteur de visites affiché dans le pied de page (endpoint public GoatCounter) -->
+  <script>
+    fetch('https://unscoop.goatcounter.com/counter/TOTAL.json')
+      .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+      .then(function(d){
+        var n=document.getElementById('viewcount-n'), box=document.getElementById('viewcount');
+        if(n&&box){ n.textContent=d.count; box.hidden=false; }
+      })
+      .catch(function(){ /* compteur public non activé ou indisponible : on n'affiche rien */ });
   </script>
 </body>
 </html>
