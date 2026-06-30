@@ -103,7 +103,7 @@ a{color:inherit;text-decoration:none}
   display:flex;align-items:center;justify-content:center;
   transition:transform 1s cubic-bezier(.76,0,.24,1);}
 #intro.done{transform:translateY(-100%)}
-#intro .mark{font-weight:800;font-size:clamp(3.2rem,17vw,7rem);letter-spacing:-.02em;
+#intro .mark{font-weight:700;font-size:clamp(3.2rem,17vw,7rem);letter-spacing:.01em;
   color:var(--ink);overflow:hidden;display:flex}
 #intro .mark span{display:inline-block;transform:translateY(110%);
   animation:introUp .7s cubic-bezier(.2,.7,.2,1) forwards}
@@ -118,7 +118,7 @@ a{color:inherit;text-decoration:none}
 /* ============ BARRE HAUTE ============ */
 .topbar{display:flex;align-items:center;justify-content:space-between;
   font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.topbar .mono{font-weight:800;color:var(--ink);letter-spacing:-.02em;font-size:1rem;text-transform:none}
+.topbar .mono{font-weight:700;color:var(--ink);letter-spacing:0;font-size:1.2rem;text-transform:none}
 .status{display:inline-flex;align-items:center;gap:7px}
 .status .dot{width:7px;height:7px;border-radius:50%;background:#46e08a;
   box-shadow:0 0 0 0 rgba(70,224,138,.6);animation:ping 2.2s ease-out infinite}
@@ -460,7 +460,7 @@ footer .copy{letter-spacing:.02em}
 
 /* Police signature — Cormorant (serif fin, romantique & sensuel) pour le nom & la marque */
 .bigname,#intro .mark,.topbar .mono,.featured h3{font-family:'Cormorant','Georgia',serif}
-.bigname{letter-spacing:.02em;font-weight:700}
+.bigname{letter-spacing:.01em;font-weight:700;text-transform:none}
 .featured h3{letter-spacing:.01em;font-weight:700}
 
 /* Compteur d'anticipation */
@@ -540,7 +540,7 @@ footer .copy{letter-spacing:.02em}
       <!-- ✏️ Le grand nom -->
       <h1 class="bigname"><span class="fill">Elaudace</span></h1>
       <p class="lede">
-        Créatrice <b>fitness &amp; lifestyle</b> à Bruxelles. Je partage mon quotidien, mon <span class="rotator" id="rotator">énergie</span>… et mon contenu le plus exclusif en privé.
+        Créatrice <b>fitness &amp; lifestyle</b> à Bruxelles. Je te partage mon quotidien, mon <span class="rotator" id="rotator">énergie</span>… et mon côté plus intime, rien que pour toi 😏
       </p>
       <span class="scrollcue"><i></i> Fais défiler</span>
     </section>
@@ -768,7 +768,7 @@ footer .copy{letter-spacing:.02em}
     (function(){
       if(reduce) return;
       const el=document.getElementById('rotator');
-      const words=['énergie','lifestyle','exclusivité','authenticité','coulisses'];
+      const words=['énergie','complicité','sensualité','exclusivité','coulisses'];
       let i=0;
       setInterval(()=>{
         i=(i+1)%words.length;
