@@ -302,6 +302,73 @@ footer .copy{letter-spacing:.02em}
   .reveal{opacity:1;transform:none}
   #intro{display:none}
 }
+
+/* ============ ✦ PREMIUM ============ */
+/* Bandeau de preuve sociale */
+.proof{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.proof .stat{background:linear-gradient(180deg,var(--bg-soft),rgba(18,16,16,.5));
+  border:1px solid var(--line);border-radius:16px;padding:18px 10px;text-align:center}
+.proof .stat .n{font-size:clamp(1.4rem,6vw,1.7rem);font-weight:800;letter-spacing:-.02em;
+  background:linear-gradient(92deg,var(--ink),var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.proof .stat .l{font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:5px}
+
+/* Étoiles */
+.stars{display:inline-flex;color:var(--gold);font-size:.95rem;letter-spacing:1px}
+
+/* Carte VIP — éléments premium */
+.featured .rating{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:4px 0 2px;font-size:.84rem;color:rgba(245,239,231,.88)}
+.featured .rating b{color:#fff}
+.price{display:flex;align-items:baseline;gap:11px;flex-wrap:wrap;margin:18px 0 2px}
+.price .now{font-size:2.1rem;font-weight:800;letter-spacing:-.02em;color:#fff;line-height:1}
+.price .now span{font-size:.88rem;font-weight:600;color:var(--muted)}
+.price .was{font-size:1.05rem;color:var(--muted);text-decoration:line-through}
+.price .save{font-size:.68rem;font-weight:800;letter-spacing:.03em;color:#0a0908;
+  background:var(--gold);padding:5px 10px;border-radius:100px}
+.scarcity{margin:16px 0 2px}
+.scarcity .bar{height:7px;border-radius:100px;background:rgba(255,255,255,.13);overflow:hidden}
+.scarcity .bar i{display:block;height:100%;width:0;border-radius:100px;
+  background:linear-gradient(90deg,var(--coral),var(--gold));transition:width 1.5s cubic-bezier(.2,.7,.2,1)}
+.scarcity .txt{font-size:.77rem;color:rgba(245,239,231,.78);margin-top:9px}
+.scarcity .txt b{color:var(--gold)}
+.microquote{display:flex;gap:12px;align-items:center;margin-top:18px;padding:14px;
+  background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.09);border-radius:14px}
+.microquote .av{width:40px;height:40px;border-radius:50%;flex-shrink:0;display:grid;place-items:center;
+  font-weight:800;color:#fff;background:linear-gradient(135deg,var(--coral),var(--coral-2))}
+.microquote p{font-size:.86rem;color:rgba(245,239,231,.92);margin:0;font-style:italic}
+.microquote .who{font-size:.72rem;color:var(--muted);margin-top:3px;font-style:normal}
+
+/* Section témoignages */
+.testi{display:grid;gap:12px}
+@media(min-width:560px){.testi{grid-template-columns:1fr 1fr}}
+.tcard{background:var(--bg-soft);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+.tcard .stars{margin-bottom:10px}
+.tcard p{font-size:.92rem;color:var(--ink)}
+.tcard .who{display:flex;align-items:center;gap:10px;margin-top:14px}
+.tcard .who .av{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:800;
+  font-size:.82rem;color:#fff;background:linear-gradient(135deg,var(--coral),var(--coral-2))}
+.tcard .who b{font-size:.84rem;display:block}
+.tcard .who span{font-size:.74rem;color:var(--muted)}
+
+/* Garanties */
+.trust{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin-top:18px}
+.trust span{display:inline-flex;align-items:center;gap:7px;font-size:.76rem;color:var(--muted);
+  background:var(--bg-soft);border:1px solid var(--line);padding:9px 13px;border-radius:100px}
+.trust span b{color:var(--ink);font-weight:600}
+
+/* CTA collant (mobile) */
+.sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:50;
+  padding:10px 16px calc(12px + env(safe-area-inset-bottom));
+  background:linear-gradient(180deg,rgba(10,9,8,0),rgba(10,9,8,.94) 45%);
+  transform:translateY(140%);transition:transform .45s cubic-bezier(.2,.7,.2,1);pointer-events:none}
+.sticky-cta.show{transform:none;pointer-events:auto}
+.sticky-cta a{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  max-width:var(--maxw);margin:0 auto;background:linear-gradient(92deg,var(--coral),var(--coral-2));
+  color:#fff;font-weight:800;padding:14px 16px 14px 20px;border-radius:100px;
+  box-shadow:0 12px 36px rgba(255,77,109,.42)}
+.sticky-cta a small{display:block;font-weight:500;font-size:.72rem;opacity:.92}
+.sticky-cta a .c{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.22);
+  display:grid;place-items:center;flex-shrink:0}
+@media(min-width:760px){.sticky-cta{display:none}}
 </style>
 </head>
 <body>
@@ -347,23 +414,45 @@ footer .copy{letter-spacing:.02em}
       <span class="scrollcue"><i></i> Fais défiler</span>
     </section>
 
-    <!-- ===== 01 · CONTENU EXCLUSIF ===== -->
-    <div class="sec-head reveal"><span class="num">01</span><span class="label">L'exclu</span><span class="rule"></span></div>
-    <!-- ✏️ Lien principal : remplace le href="#" -->
+    <!-- ===== PREUVE SOCIALE ✏️ Remplace par tes VRAIS chiffres (sinon laisse vide) ===== -->
+    <div class="proof reveal" aria-label="Quelques chiffres">
+      <div class="stat"><div class="n" data-target="124" data-suffix="K">0</div><div class="l">Abonnés</div></div>
+      <div class="stat"><div class="n" data-target="4.9" data-dec="1" data-suffix="★">0</div><div class="l">Note moyenne</div></div>
+      <div class="stat"><div class="n" data-target="2.5" data-dec="1" data-suffix="M">0</div><div class="l">Vues cumulées</div></div>
+    </div>
+
+    <!-- ===== 01 · ACCÈS VIP ===== -->
+    <div class="sec-head reveal"><span class="num">01</span><span class="label">L'accès privé</span><span class="rule"></span></div>
+    <!-- ✏️ Lien principal : remplace le href="#" par le lien de ton abonnement -->
     <a class="featured reveal" id="magnet" href="#" target="_blank" rel="noopener">
       <span class="fbg" aria-hidden="true"><picture><source srcset="img-pool.webp" type="image/webp"><img src="img-pool.jpg" alt="" loading="lazy" decoding="async"></picture></span>
       <span class="sheen"></span>
       <span class="badge-vip">🔥 Le plus demandé</span>
       <span class="kicker">Accès privé · VIP</span>
       <h3>Mon contenu exclusif</h3>
+      <!-- ✏️ Note &amp; nombre de membres : mets tes VRAIS chiffres ou supprime cette ligne -->
+      <div class="rating"><span class="stars">★★★★★</span><span><b>4,9/5</b> · 1&nbsp;200+ membres conquis</span></div>
       <p>Le meilleur de mon univers, en accès direct et privé — comme nulle part ailleurs.</p>
       <ul class="perks">
-        <li>Photos &amp; vidéos exclusives</li>
+        <li>Photos &amp; vidéos exclusives, jamais publiées ailleurs</li>
         <li>Du nouveau contenu chaque semaine</li>
-        <li>Accès direct, en privé avec moi</li>
+        <li>Messages en privé, direct avec moi</li>
+        <li>Offres &amp; avantages réservés aux membres</li>
       </ul>
+      <!-- ✏️ Prix : adapte les montants (ou supprime ce bloc) -->
+      <div class="price"><span class="now">14€<span>&nbsp;/mois</span></span><span class="was">29€</span><span class="save">−50% lancement</span></div>
+      <!-- ✏️ Rareté : ajuste data-fill (% de places prises) -->
+      <div class="scarcity" data-fill="82">
+        <div class="bar"><i></i></div>
+        <div class="txt">⏳ <b>82%</b> des places de ce mois sont déjà prises</div>
+      </div>
+      <!-- ✏️ Témoignage : remplace par un vrai avis -->
+      <div class="microquote">
+        <span class="av">L</span>
+        <div><p>« Franchement, le meilleur abonnement que j'ai pris cette année. »</p><div class="who">— Lucas, membre depuis 6 mois</div></div>
+      </div>
       <span class="go">Rejoindre maintenant <span class="circle">↗</span></span>
-      <span class="reassure">Sans engagement · Annulation à tout moment</span>
+      <span class="reassure">🔒 Paiement sécurisé · Sans engagement · Annulation en 1 clic</span>
     </a>
 
     <!-- ===== 02 · RÉSEAUX ===== -->
@@ -403,8 +492,29 @@ footer .copy{letter-spacing:.02em}
       <div class="cell land"><picture><source srcset="img-run.webp" type="image/webp"><img src="img-run.jpg" alt="Course au bord de mer" loading="lazy" decoding="async"></picture></div>
     </div>
 
-    <!-- ===== 04 · NEWSLETTER ===== -->
-    <div class="sec-head reveal"><span class="num">04</span><span class="label">Reste informé·e</span><span class="rule"></span></div>
+    <!-- ===== 04 · TÉMOIGNAGES ✏️ Remplace par de VRAIS avis ===== -->
+    <div class="sec-head reveal"><span class="num">04</span><span class="label">Ils ont rejoint</span><span class="rule"></span></div>
+    <div class="testi reveal">
+      <div class="tcard">
+        <span class="stars">★★★★★</span>
+        <p>« Du contenu de ouf, et elle répond vraiment en privé. Je regrette pas une seconde. »</p>
+        <div class="who"><span class="av">M</span><span><b>Maxime D.</b><span>Membre VIP</span></span></div>
+      </div>
+      <div class="tcard">
+        <span class="stars">★★★★★</span>
+        <p>« Exactement ce que je cherchais. Nouveau contenu chaque semaine, jamais déçu. »</p>
+        <div class="who"><span class="av">T</span><span><b>Thomas R.</b><span>Membre depuis 1 an</span></span></div>
+      </div>
+    </div>
+    <div class="trust reveal">
+      <span>🔒 <b>Paiement sécurisé</b></span>
+      <span>✦ <b>Annulation en 1 clic</b></span>
+      <span>⚡ <b>Accès immédiat</b></span>
+      <span>💬 <b>Réponse perso</b></span>
+    </div>
+
+    <!-- ===== 05 · NEWSLETTER ===== -->
+    <div class="sec-head reveal"><span class="num">05</span><span class="label">Reste informé·e</span><span class="rule"></span></div>
     <div class="cta reveal">
       <h4>Ne rate aucune nouveauté</h4>
       <p>Laisse ton e-mail : tu seras prévenu·e en avant-première des sorties et offres.</p>
@@ -449,6 +559,11 @@ footer .copy{letter-spacing:.02em}
   </main>
 
   <button class="totop" id="totop" type="button" aria-label="Haut de page">↑</button>
+
+  <!-- ===== CTA COLLANT (mobile) — pointe vers la carte VIP ===== -->
+  <div class="sticky-cta" id="stickyCta" aria-hidden="true">
+    <a href="#magnet"><span><strong>Rejoindre l'accès VIP</strong><small>−50% · offre de lancement</small></span><span class="c">↗</span></a>
+  </div>
 
   <!-- ===== MUSIQUE DE FOND ===== -->
   <button class="sound" id="soundBtn" type="button" aria-pressed="false" aria-label="Activer la musique">
@@ -586,6 +701,47 @@ footer .copy{letter-spacing:.02em}
         }
       });
     })();
+  </script>
+
+  <!-- ===== PREMIUM : compteurs animés, jauge de rareté, CTA collant ===== -->
+  <script>
+  (function(){
+    var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function countUp(el){
+      var target=parseFloat(el.getAttribute('data-target'))||0,
+          dec=parseInt(el.getAttribute('data-dec')||'0',10),
+          suf=el.getAttribute('data-suffix')||'', dur=1500, t0=null;
+      function fmt(v){ return v.toFixed(dec).replace('.',',')+suf; }
+      if(reduce){ el.textContent=fmt(target); return; }
+      function step(ts){ if(!t0)t0=ts; var p=Math.min((ts-t0)/dur,1), e=1-Math.pow(1-p,3);
+        el.textContent=fmt(target*e); if(p<1) requestAnimationFrame(step); }
+      requestAnimationFrame(step);
+    }
+    function fill(box){ var pct=parseInt(box.getAttribute('data-fill')||'0',10),
+        bar=box.querySelector('.bar i'); if(bar) requestAnimationFrame(function(){bar.style.width=pct+'%';}); }
+    var seen=new WeakSet();
+    function run(node){
+      if(node.matches&&node.matches('.scarcity[data-fill]')&&!seen.has(node)){seen.add(node);fill(node);}
+      node.querySelectorAll('.n[data-target]').forEach(function(n){ if(!seen.has(n)){seen.add(n);countUp(n);} });
+      node.querySelectorAll('.scarcity[data-fill]').forEach(function(s){ if(!seen.has(s)){seen.add(s);fill(s);} });
+    }
+    var targets=document.querySelectorAll('.proof,.scarcity');
+    if(reduce||!('IntersectionObserver' in window)){ run(document); }
+    else{
+      var io=new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting){ run(e.target); io.unobserve(e.target);} });},{threshold:.35});
+      targets.forEach(function(el){io.observe(el);});
+    }
+    /* CTA collant : visible après le héro, masqué près du pied de page */
+    var sticky=document.getElementById('stickyCta'), hero=document.querySelector('.hero'), foot=document.querySelector('footer');
+    if(sticky&&hero){
+      var onScroll=function(){
+        var hb=hero.getBoundingClientRect().bottom;
+        var nearFoot=foot ? foot.getBoundingClientRect().top < innerHeight*0.95 : false;
+        sticky.classList.toggle('show', hb<-10 && !nearFoot);
+      };
+      addEventListener('scroll',onScroll,{passive:true}); addEventListener('resize',onScroll,{passive:true}); onScroll();
+    }
+  })();
   </script>
 
   <!-- ===== STATISTIQUES — GoatCounter (léger, respectueux de la vie privée, sans cookies) ===== -->
