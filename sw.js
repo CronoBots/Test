@@ -1,6 +1,8 @@
 /* Service Worker — Elaudace
-   Stratégie : network-first pour la page (mises à jour visibles), cache-first pour les assets. */
-const CACHE = 'elaudace-v1';
+   Stratégie : network-first pour la page (mises à jour visibles), cache-first pour les assets.
+   IMPORTANT : on NE touche PAS aux médias (audio/vidéo) ni aux requêtes Range,
+   sinon la lecture de la musique se casse (notamment sur Safari/iOS). */
+const CACHE = 'elaudace-v2';
 const ASSETS = ['./', './index.html', './img-run.webp', './onlyfans-logo.svg', './icon-192.png'];
 
 self.addEventListener('install', e => {
@@ -18,6 +20,12 @@ self.addEventListener('activate', e => {
 self.addEventListener('fetch', e => {
   const req = e.request;
   if (req.method !== 'GET') return;
+
+  // Laisser passer les médias et les requêtes Range (audio/vidéo) — sinon lecture cassée
+  if (req.headers.has('range')) return;
+  if (req.destination === 'audio' || req.destination === 'video') return;
+  const url = new URL(req.url);
+  if (/\.(mp3|mp4|m4a|aac|ogg|oga|wav|webm|mov)$/i.test(url.pathname)) return;
 
   // Page HTML : network-first (on voit toujours la dernière version en ligne)
   if (req.mode === 'navigate') {
