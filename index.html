@@ -576,6 +576,15 @@ footer .copy{letter-spacing:.02em}
       /* 2) Repli : démarrage au tout premier geste (politique navigateur sur l'autoplay) */
       const start=()=>{ if(!userPaused && bgm.paused) play(); };
       ['pointerdown','touchstart','keydown','mousemove','scroll'].forEach(ev=>addEventListener(ev,start,{once:true,passive:true}));
+      /* 3) Pause si l'onglet/la page n'est plus visible, reprise au retour */
+      let wasPlaying=false;
+      document.addEventListener('visibilitychange',()=>{
+        if(document.hidden){
+          if(!bgm.paused){ wasPlaying=true; pause(); }
+        } else if(wasPlaying && !userPaused){
+          wasPlaying=false; play();
+        }
+      });
     })();
   </script>
 
