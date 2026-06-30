@@ -25,7 +25,7 @@
 <meta name="twitter:image" content="https://cronobots.github.io/ELAUDACE/img-run.jpg">
 
 <!-- Favicon emoji (aucun fichier à uploader) -->
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='26' fill='%23ff4d6d'/%3E%3Ctext x='50' y='73' font-family='Arial,Helvetica,sans-serif' font-size='68' font-weight='bold' fill='%23ffffff' text-anchor='middle'%3EE%3C/text%3E%3C/svg%3E">
 
 <!-- Préchargement de l'image du héro (chargement perçu plus rapide) -->
 <link rel="preload" as="image" href="img-run.webp" type="image/webp" fetchpriority="high">
@@ -396,6 +396,44 @@ footer .copy{letter-spacing:.02em}
 @media(max-width:759px){
   body.sticky-on .totop,body.sticky-on .sound{bottom:92px}
 }
+
+/* ============ ✦ PRO (avatar, bio, FAQ, 18+, teaser) ============ */
+.profile{display:flex;align-items:center;gap:13px;margin-bottom:20px}
+.profile .av{position:relative;width:62px;height:62px;border-radius:50%;flex-shrink:0;
+  padding:2px;background:linear-gradient(135deg,var(--coral),var(--gold))}
+.profile .av img{width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:50% 18%;display:block;border:2px solid var(--bg)}
+.profile .av .liv{position:absolute;right:1px;bottom:1px;width:14px;height:14px;border-radius:50%;background:#46e08a;border:2.5px solid var(--bg)}
+.profile .who b{font-size:1.05rem;font-weight:800;display:inline-flex;align-items:center;gap:6px}
+.profile .who .vf{width:16px;height:16px;flex-shrink:0}
+.profile .who p{font-size:.82rem;color:var(--muted);margin-top:2px}
+.hero .lede b{color:var(--ink);font-weight:600}
+
+.faq{display:grid;gap:10px}
+.faq details{background:var(--bg-soft);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.faq summary{list-style:none;cursor:pointer;padding:15px 18px;font-weight:600;font-size:.95rem;
+  display:flex;align-items:center;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:1.35rem;color:var(--coral);transition:transform .25s ease;line-height:1}
+.faq details[open] summary{color:var(--coral)}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq .a{padding:0 18px 16px;color:var(--muted);font-size:.9rem;line-height:1.6}
+
+.age{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:700;color:var(--muted);
+  border:1px solid var(--line);border-radius:100px;padding:6px 13px}
+.age b{color:var(--ink)}
+.legal{display:flex;flex-wrap:wrap;gap:6px 16px;justify-content:center;font-size:.74rem}
+.legal a{color:var(--muted)}.legal a:hover{color:var(--ink)}
+
+.cell.lock{display:block}
+.cell.lock::after{content:"";position:absolute;inset:0;z-index:1;opacity:1;
+  background:linear-gradient(180deg,rgba(10,9,8,.25),rgba(10,9,8,.85))}
+.cell.lock img{filter:blur(7px) saturate(.85);transform:scale(1.12)}
+.cell.lock .lk{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:7px;text-align:center;padding:18px;color:#fff}
+.cell.lock .lk svg{width:26px;height:26px;fill:#fff}
+.cell.lock .lk b{font-size:.98rem;font-weight:800}
+.cell.lock .lk span{font-size:.76rem;color:#fff;font-weight:700;background:var(--of);padding:6px 12px;border-radius:100px;margin-top:4px}
+.cell.lock:hover img{transform:scale(1.18)}
 </style>
 </head>
 <body>
@@ -431,12 +469,16 @@ footer .copy{letter-spacing:.02em}
         <span class="hero-veil"></span>
       </div>
 
+      <!-- ✏️ Photo de profil : remplace le src par ta vraie photo -->
+      <div class="profile">
+        <span class="av"><img src="img-pool.jpg" alt="Photo de profil d'Elaudace"><span class="liv" title="En ligne"></span></span>
+        <span class="who"><b>Elaudace <svg class="vf" viewBox="0 0 24 24" aria-hidden="true"><path fill="#e7c79b" d="M12 1.6l2.5 1.9 3.1.2.9 3 2.5 1.9-.9 3 .9 3-2.5 1.9-.9 3-3.1.2L12 22.4l-2.5-1.9-3.1-.2-.9-3-2.5-1.9.9-3-.9-3 2.5-1.9.9-3 3.1-.2z"/><path fill="#0a0908" d="M10.5 14.7l-2.1-2.1-1.3 1.3 3.4 3.4 5.9-5.9-1.3-1.3z"/></svg></b><p>@elaudace · Bruxelles 🇧🇪</p></span>
+      </div>
       <div class="eyebrow">Fitness creator — Belgique</div>
       <!-- ✏️ Le grand nom -->
       <h1 class="bigname"><span class="fill">Elaudace</span></h1>
       <p class="lede">
-        L'audace au quotidien : <span class="rotator" id="rotator">entraînements</span>.<br>
-        Bienvenue dans les coulisses.
+        Créatrice <b>fitness &amp; lifestyle</b> à Bruxelles. Je partage mon quotidien, mon <span class="rotator" id="rotator">énergie</span>… et mon contenu le plus exclusif en privé.
       </p>
       <span class="scrollcue"><i></i> Fais défiler</span>
     </section>
@@ -517,6 +559,11 @@ footer .copy{letter-spacing:.02em}
       <div class="cell land"><picture><source srcset="img-cycle.webp" type="image/webp"><img src="img-cycle.jpg" alt="Cyclisme sur la côte" loading="lazy" decoding="async"></picture></div>
       <div class="cell land"><picture><source srcset="img-gym.webp" type="image/webp"><img src="img-gym.jpg" alt="Séance de musculation" loading="lazy" decoding="async"></picture></div>
       <div class="cell land"><picture><source srcset="img-run.webp" type="image/webp"><img src="img-run.jpg" alt="Course au bord de mer" loading="lazy" decoding="async"></picture></div>
+      <!-- ✏️ Teaser verrouillé : remplace href="#" par ton lien OnlyFans -->
+      <a class="cell full lock" href="#" target="_blank" rel="noopener" aria-label="Débloquer le contenu exclusif sur OnlyFans">
+        <picture><source srcset="img-pool.webp" type="image/webp"><img src="img-pool.jpg" alt="" loading="lazy" decoding="async"></picture>
+        <span class="lk"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2h-1V6a5 5 0 0 0-5-5zm-3 8V6a3 3 0 0 1 6 0v3H9z"/></svg><b>+50 photos &amp; vidéos exclusives</b><span>Débloquer sur OnlyFans →</span></span>
+      </a>
     </div>
 
     <!-- ===== 04 · TÉMOIGNAGES ✏️ Remplace par de VRAIS avis ===== -->
@@ -540,8 +587,18 @@ footer .copy{letter-spacing:.02em}
       <span>💬 <b>Réponse perso</b></span>
     </div>
 
-    <!-- ===== 05 · NEWSLETTER ===== -->
-    <div class="sec-head reveal"><span class="num">05</span><span class="label">Reste informé·e</span><span class="rule"></span></div>
+    <!-- ===== 05 · FAQ ===== -->
+    <div class="sec-head reveal"><span class="num">05</span><span class="label">Questions fréquentes</span><span class="rule"></span></div>
+    <div class="faq reveal">
+      <details><summary>Qu'est-ce que je reçois en m'abonnant&nbsp;?</summary><div class="a">Un accès privé à mes photos et vidéos exclusives, du nouveau contenu chaque semaine, et la possibilité de m'écrire en direct.</div></details>
+      <details><summary>La facturation est-elle discrète&nbsp;?</summary><div class="a">Oui — le paiement passe par OnlyFans, de façon sécurisée et discrète. Rien d'explicite n'apparaît sur ton relevé.</div></details>
+      <details><summary>Puis-je annuler quand je veux&nbsp;?</summary><div class="a">Sans engagement : tu peux résilier en un clic à tout moment, directement depuis OnlyFans.</div></details>
+      <details><summary>Est-ce confidentiel&nbsp;?</summary><div class="a">Totalement. Ton abonnement reste privé et tes informations ne sont jamais partagées.</div></details>
+      <details><summary>Sur quels appareils&nbsp;?</summary><div class="a">Partout : ordinateur, tablette et mobile, directement depuis ton navigateur.</div></details>
+    </div>
+
+    <!-- ===== 06 · NEWSLETTER ===== -->
+    <div class="sec-head reveal"><span class="num">06</span><span class="label">Reste informé·e</span><span class="rule"></span></div>
     <div class="cta reveal">
       <h4>Ne rate aucune nouveauté</h4>
       <p>Laisse ton e-mail : tu seras prévenu·e en avant-première des sorties et offres.</p>
@@ -580,6 +637,13 @@ footer .copy{letter-spacing:.02em}
         <a href="#" target="_blank" rel="noopener" aria-label="Telegram" title="Telegram">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.94 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.55 8.16c-.18 1.9-.96 6.5-1.36 8.63-.17.9-.5 1.2-.82 1.23-.7.06-1.23-.46-1.9-.9-1.06-.7-1.66-1.13-2.69-1.81-1.19-.78-.42-1.21.26-1.91.18-.18 3.24-2.97 3.3-3.22.01-.03.01-.15-.06-.21s-.16-.04-.24-.02c-.1.02-1.72 1.09-4.86 3.21-.46.32-.88.47-1.25.46-.41-.01-1.2-.23-1.79-.42-.72-.23-1.3-.36-1.25-.76.03-.21.32-.42.87-.64 3.4-1.48 5.67-2.46 6.8-2.93 3.24-1.35 3.92-1.58 4.35-1.59.1 0 .31.02.45.13.11.09.14.21.16.3.02.13.04.27.02.42z"/></svg>
         </a>
+      </nav>
+      <span class="age">🔞 <b>18+</b> · Contenu réservé aux adultes</span>
+      <!-- ✏️ Liens légaux : à compléter (mentions, politique de confidentialité, e-mail de contact) -->
+      <nav class="legal" aria-label="Liens légaux">
+        <a href="#">Mentions légales</a>
+        <a href="#">Confidentialité</a>
+        <a href="mailto:contact@elaudace.be">Contact</a>
       </nav>
       <span class="copy">© <span id="year"></span> Elaudace — Tous droits réservés</span>
       <span class="viewcount" id="viewcount" hidden>
@@ -632,7 +696,7 @@ footer .copy{letter-spacing:.02em}
     (function(){
       if(reduce) return;
       const el=document.getElementById('rotator');
-      const words=['entraînements','lifestyle','mindset','discipline','énergie'];
+      const words=['énergie','lifestyle','exclusivité','authenticité','coulisses'];
       let i=0;
       setInterval(()=>{
         i=(i+1)%words.length;
