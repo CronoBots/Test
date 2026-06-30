@@ -6,6 +6,9 @@
 <title>Elaudace — Fitness · Lifestyle</title>
 <meta name="description" content="Elaudace — fitness, lifestyle et contenu exclusif. Tous mes liens, un seul endroit.">
 <meta name="theme-color" content="#0a0908">
+<link rel="canonical" href="https://cronobots.github.io/ELAUDACE/">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Elaudace">
 
 <!-- ===== Partage social (aperçu Insta / WhatsApp / X / Telegram) =====
      Remplace l'URL og:url quand tu as l'adresse finale. -->
@@ -26,6 +29,11 @@
 
 <!-- Préchargement de l'image du héro (chargement perçu plus rapide) -->
 <link rel="preload" as="image" href="img-run.webp" type="image/webp" fetchpriority="high">
+
+<!-- Données structurées (SEO) -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ProfilePage","mainEntity":{"@type":"Person","name":"Elaudace","description":"Créatrice fitness & lifestyle — contenu exclusif privé. Tous mes liens, un seul endroit.","url":"https://cronobots.github.io/ELAUDACE/","image":"https://cronobots.github.io/ELAUDACE/img-run.jpg"}}
+</script>
 
 <style>
 /* =================================================================
@@ -62,6 +70,7 @@ body{
 }
 a{color:inherit;text-decoration:none}
 ::selection{background:var(--coral);color:#fff}
+:focus-visible{outline:2px solid var(--coral);outline-offset:3px;border-radius:6px}
 
 /* ============ TEXTURE & LUMIÈRE DE FOND ============ */
 .bg-fx{position:fixed;inset:0;z-index:-3;
@@ -569,7 +578,7 @@ footer .copy{letter-spacing:.02em}
   <button class="sound" id="soundBtn" type="button" aria-pressed="false" aria-label="Activer la musique">
     <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
   </button>
-  <audio id="bgm" src="elaudace.mp3" loop preload="auto" autoplay>
+  <audio id="bgm" src="elaudace.mp3" loop preload="metadata" autoplay>
 
   <script>
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
