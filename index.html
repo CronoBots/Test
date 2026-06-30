@@ -435,6 +435,16 @@ footer .copy{letter-spacing:.02em}
 .cell.lock .lk b{font-size:.98rem;font-weight:800}
 .cell.lock .lk span{font-size:.76rem;color:#fff;font-weight:700;background:var(--of);padding:6px 12px;border-radius:100px;margin-top:4px}
 .cell.lock:hover img{transform:scale(1.18)}
+
+/* Galerie : apparition en cascade au scroll */
+@keyframes cellIn{from{opacity:0;transform:translateY(26px) scale(.96)}to{opacity:1;transform:none}}
+.gallery .cell{opacity:0}
+.gallery.in .cell{opacity:1;animation:cellIn .7s cubic-bezier(.2,.7,.2,1) backwards}
+.gallery.in .cell:nth-child(2){animation-delay:.09s}
+.gallery.in .cell:nth-child(3){animation-delay:.18s}
+.gallery.in .cell:nth-child(4){animation-delay:.27s}
+.gallery.in .cell:nth-child(5){animation-delay:.36s}
+.gallery.in .cell:nth-child(6){animation-delay:.45s}
 </style>
 </head>
 <body>
