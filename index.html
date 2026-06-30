@@ -10,6 +10,18 @@
 <meta name="robots" content="index, follow">
 <meta name="author" content="Elaudace">
 
+<!-- PWA : installable sur l'écran d'accueil -->
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Elaudace">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<!-- Police signature (uniquement pour le nom) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
 <!-- ===== Partage social (aperçu Insta / WhatsApp / X / Telegram) =====
      Remplace l'URL og:url quand tu as l'adresse finale. -->
 <meta property="og:type" content="website">
@@ -445,6 +457,28 @@ footer .copy{letter-spacing:.02em}
 .gallery.in .cell:nth-child(4){animation-delay:.27s}
 .gallery.in .cell:nth-child(5){animation-delay:.36s}
 .gallery.in .cell:nth-child(6){animation-delay:.45s}
+
+/* Police signature — appliquée uniquement au nom & à la marque */
+.bigname,#intro .mark,.topbar .mono{font-family:'Syne','Inter','Segoe UI',sans-serif}
+
+/* Compteur d'anticipation */
+.drop{margin-top:14px;display:flex;align-items:center;justify-content:center;gap:8px;text-align:center;
+  font-size:.82rem;color:var(--muted);background:var(--bg-soft);border:1px solid var(--line);
+  border-radius:100px;padding:11px 16px}
+.drop .dt{color:var(--gold)}
+.drop b{color:var(--ink);font-weight:700}
+
+/* Section « Mes essentiels » */
+.essentials-intro{color:var(--muted);font-size:.9rem;margin:-4px 0 16px}
+.essentials{display:grid;gap:10px;grid-template-columns:1fr 1fr}
+@media(max-width:430px){.essentials{grid-template-columns:1fr}}
+.ess{display:flex;align-items:center;gap:13px;background:var(--bg-soft);border:1px solid var(--line);
+  border-radius:14px;padding:14px 16px;transition:transform .25s ease,border-color .25s ease}
+.ess:hover{transform:translateY(-2px);border-color:var(--coral)}
+.ess .ic{font-size:1.45rem;line-height:1}
+.ess .nm{font-weight:600;font-size:.92rem;flex:1}
+.ess .nm small{display:block;font-weight:400;font-size:.76rem;color:var(--muted);margin-top:1px}
+.ess .go2{font-size:.8rem;color:var(--coral);font-weight:700;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -500,6 +534,9 @@ footer .copy{letter-spacing:.02em}
       <div class="stat"><div class="n" data-target="4.8" data-dec="1" data-suffix="★">0</div><div class="l">Note membres</div></div>
       <div class="stat"><div class="n" data-target="3" data-suffix="×">0</div><div class="l">Contenu / semaine</div></div>
     </div>
+
+    <!-- ===== COMPTEUR D'ANTICIPATION (prochain drop) ===== -->
+    <div class="drop reveal" id="drop" hidden><span class="dt">✦</span> Prochain contenu exclusif <b id="dropIn">…</b></div>
 
     <!-- ===== 01 · ACCÈS VIP ===== -->
     <div class="sec-head reveal"><span class="num">01</span><span class="label">L'accès privé</span><span class="rule"></span></div>
@@ -573,13 +610,23 @@ footer .copy{letter-spacing:.02em}
       <!-- ✏️ Teaser verrouillé : remplace href="#" par ton lien OnlyFans -->
       <a class="cell full lock" href="#" target="_blank" rel="noopener" aria-label="Débloquer le contenu exclusif sur OnlyFans">
         <!-- ✏️ Image de teaser (floutée). Remplace par tes photos officielles plus tard. -->
-        <picture><img src="IMG_1380.jpeg" alt="" loading="lazy" decoding="async"></picture>
+        <picture><source srcset="IMG_1380.webp" type="image/webp"><img src="IMG_1380.jpeg" alt="" loading="lazy" decoding="async"></picture>
         <span class="lk"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2h-1V6a5 5 0 0 0-5-5zm-3 8V6a3 3 0 0 1 6 0v3H9z"/></svg><b>+50 photos &amp; vidéos exclusives</b><span>Débloquer sur OnlyFans →</span></span>
       </a>
     </div>
 
-    <!-- ===== 04 · TÉMOIGNAGES ✏️ Remplace par de VRAIS avis ===== -->
-    <div class="sec-head reveal"><span class="num">04</span><span class="label">Ils ont rejoint</span><span class="rule"></span></div>
+    <!-- ===== 04 · MES ESSENTIELS ✏️ Liens d'affiliation à compléter ===== -->
+    <div class="sec-head reveal"><span class="num">04</span><span class="label">Mes essentiels</span><span class="rule"></span></div>
+    <p class="essentials-intro reveal">Les marques &amp; objets que j'utilise au quotidien — mes coups de cœur.</p>
+    <div class="essentials reveal">
+      <a class="ess" href="#" target="_blank" rel="noopener"><span class="ic">👟</span><span class="nm">Ma tenue de sport<small>La marque que je porte</small></span><span class="go2">Voir →</span></a>
+      <a class="ess" href="#" target="_blank" rel="noopener"><span class="ic">🧴</span><span class="nm">Mon parfum signature<small>Mon odeur du quotidien</small></span><span class="go2">Voir →</span></a>
+      <a class="ess" href="#" target="_blank" rel="noopener"><span class="ic">💄</span><span class="nm">Ma routine beauté<small>Mes indispensables</small></span><span class="go2">Voir →</span></a>
+      <a class="ess" href="#" target="_blank" rel="noopener"><span class="ic">🎧</span><span class="nm">Mon setup contenu<small>Caméra, lumière, son</small></span><span class="go2">Voir →</span></a>
+    </div>
+
+    <!-- ===== 05 · TÉMOIGNAGES ✏️ Remplace par de VRAIS avis ===== -->
+    <div class="sec-head reveal"><span class="num">05</span><span class="label">Ils ont rejoint</span><span class="rule"></span></div>
     <div class="testi reveal">
       <div class="tcard">
         <span class="stars">★★★★★</span>
@@ -599,8 +646,8 @@ footer .copy{letter-spacing:.02em}
       <span>💬 <b>Réponse perso</b></span>
     </div>
 
-    <!-- ===== 05 · FAQ ===== -->
-    <div class="sec-head reveal"><span class="num">05</span><span class="label">Questions fréquentes</span><span class="rule"></span></div>
+    <!-- ===== 06 · FAQ ===== -->
+    <div class="sec-head reveal"><span class="num">06</span><span class="label">Questions fréquentes</span><span class="rule"></span></div>
     <div class="faq reveal">
       <details><summary>Qu'est-ce que je reçois en m'abonnant&nbsp;?</summary><div class="a">Un accès privé à mes photos et vidéos exclusives, du nouveau contenu chaque semaine, et la possibilité de m'écrire en direct.</div></details>
       <details><summary>La facturation est-elle discrète&nbsp;?</summary><div class="a">Oui — le paiement passe par OnlyFans, de façon sécurisée et discrète. Rien d'explicite n'apparaît sur ton relevé.</div></details>
@@ -609,8 +656,8 @@ footer .copy{letter-spacing:.02em}
       <details><summary>Sur quels appareils&nbsp;?</summary><div class="a">Partout : ordinateur, tablette et mobile, directement depuis ton navigateur.</div></details>
     </div>
 
-    <!-- ===== 06 · NEWSLETTER ===== -->
-    <div class="sec-head reveal"><span class="num">06</span><span class="label">Reste informé·e</span><span class="rule"></span></div>
+    <!-- ===== 07 · NEWSLETTER ===== -->
+    <div class="sec-head reveal"><span class="num">07</span><span class="label">Reste informé·e</span><span class="rule"></span></div>
     <div class="cta reveal">
       <h4>Ne rate aucune nouveauté</h4>
       <p>Laisse ton e-mail : tu seras prévenu·e en avant-première des sorties et offres.</p>
@@ -849,6 +896,30 @@ footer .copy{letter-spacing:.02em}
       };
       addEventListener('scroll',onScroll,{passive:true}); addEventListener('resize',onScroll,{passive:true}); onScroll();
     }
+  })();
+  </script>
+
+  <!-- ===== PWA (service worker) + compteur d'anticipation ===== -->
+  <script>
+  if('serviceWorker' in navigator){ addEventListener('load',function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); }); }
+  (function(){
+    var el=document.getElementById('drop'), out=document.getElementById('dropIn');
+    if(!el||!out) return;
+    /* ✏️ Jour du « drop » : 5 = vendredi, à 20h. Change le chiffre pour un autre jour. */
+    function nextDrop(){
+      var now=new Date(), d=new Date(now); d.setHours(20,0,0,0);
+      var add=(5 - d.getDay() + 7) % 7;
+      if(add===0 && now.getTime()>=d.getTime()) add=7;
+      d.setDate(d.getDate()+add); return d;
+    }
+    function tick(){
+      var diff=nextDrop().getTime()-Date.now();
+      if(diff<=0){ out.textContent="aujourd'hui ✨"; el.hidden=false; return; }
+      var days=Math.floor(diff/864e5), h=Math.floor(diff/36e5)%24, m=Math.floor(diff/6e4)%60;
+      out.textContent = days>0 ? ('dans '+days+' j '+h+' h') : ('dans '+h+' h '+m+' min');
+      el.hidden=false;
+    }
+    tick(); setInterval(tick,30000);
   })();
   </script>
 
