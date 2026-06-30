@@ -460,7 +460,7 @@ footer .copy{letter-spacing:.02em}
 
 /* Police signature — Cormorant (serif fin, romantique & sensuel) pour le nom & la marque */
 .bigname,#intro .mark,.topbar .mono,.featured h3{font-family:'Cormorant','Georgia',serif}
-.bigname{letter-spacing:.01em;font-weight:700;text-transform:none}
+.bigname{letter-spacing:.01em;font-weight:700;text-transform:none;font-size:clamp(3.2rem,17vw,7rem)}
 .featured h3{letter-spacing:.01em;font-weight:700}
 
 /* Compteur d'anticipation */
@@ -656,12 +656,6 @@ footer .copy{letter-spacing:.02em}
         <div class="who"><span class="av">T</span><span><b>Thomas R.</b><span>Membre depuis 1 an</span></span></div>
       </div>
     </div>
-    <div class="trust reveal">
-      <span>🔒 <b>Paiement sécurisé</b></span>
-      <span>✦ <b>Annulation en 1 clic</b></span>
-      <span>⚡ <b>Accès immédiat</b></span>
-      <span>💬 <b>Réponse perso</b></span>
-    </div>
 
     <!-- ===== 06 · FAQ ===== -->
     <div class="sec-head reveal"><span class="num">06</span><span class="label">Questions fréquentes</span><span class="rule"></span></div>
@@ -727,10 +721,6 @@ footer .copy{letter-spacing:.02em}
 
   <button class="totop" id="totop" type="button" aria-label="Haut de page">↑</button>
 
-  <!-- ===== CTA COLLANT (mobile) — pointe vers la carte VIP ===== -->
-  <div class="sticky-cta of" id="stickyCta" aria-hidden="true">
-    <a href="#magnet"><span style="display:flex;align-items:center;gap:10px"><img class="of-ic-lg" src="onlyfans-icon-white.svg" alt="" aria-hidden="true"><span><strong>Rejoindre sur OnlyFans</strong><small>Contenu exclusif privé</small></span></span><span class="c">↗</span></a>
-  </div>
 
   <!-- ===== MUSIQUE DE FOND ===== -->
   <button class="sound" id="soundBtn" type="button" aria-pressed="false" aria-label="Activer la musique">
@@ -885,18 +875,7 @@ footer .copy{letter-spacing:.02em}
       var io=new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting){ run(e.target); io.unobserve(e.target);} });},{threshold:.35});
       targets.forEach(function(el){io.observe(el);});
     }
-    /* CTA collant : visible après le héro, masqué près du pied de page */
-    var sticky=document.getElementById('stickyCta'), hero=document.querySelector('.hero'), foot=document.querySelector('footer');
-    if(sticky&&hero){
-      var onScroll=function(){
-        var hb=hero.getBoundingClientRect().bottom;
-        var nearFoot=foot ? foot.getBoundingClientRect().top < innerHeight*0.95 : false;
-        var show=hb<-10 && !nearFoot;
-        sticky.classList.toggle('show', show);
-        document.body.classList.toggle('sticky-on', show);
-      };
-      addEventListener('scroll',onScroll,{passive:true}); addEventListener('resize',onScroll,{passive:true}); onScroll();
-    }
+    /* (CTA collant retiré) */
   })();
   </script>
 
