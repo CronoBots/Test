@@ -481,6 +481,29 @@ footer .copy{letter-spacing:.02em}
 .ess .nm{font-weight:600;font-size:.92rem;flex:1}
 .ess .nm small{display:block;font-weight:400;font-size:.76rem;color:var(--muted);margin-top:1px}
 .ess .go2{font-size:.8rem;color:var(--coral);font-weight:700;white-space:nowrap}
+
+/* CTA du héro — accès direct à l'offre */
+.hero-cta{margin-top:24px;display:inline-flex;align-items:center;gap:10px;
+  background:linear-gradient(92deg,#00AFF0,#0093d6);color:#fff;font-weight:700;font-size:.98rem;
+  padding:13px 22px;border-radius:100px;box-shadow:0 10px 30px rgba(0,175,240,.4);
+  transition:transform .2s ease,box-shadow .2s ease}
+.hero-cta:hover{transform:translateY(-2px);box-shadow:0 14px 38px rgba(0,175,240,.55)}
+.hero-cta img{width:20px;height:20px}
+
+/* Appel final à l'action — conversion de clôture */
+.finalcta{margin-top:8px;padding:36px 24px;border-radius:var(--radius);text-align:center;
+  background:radial-gradient(120% 120% at 50% 0%,rgba(0,175,240,.15),var(--bg-soft));
+  border:1px solid rgba(0,175,240,.32)}
+.finalcta h3{font-family:'Cormorant','Georgia',serif;font-weight:700;letter-spacing:.01em;
+  font-size:clamp(1.7rem,7.5vw,2.3rem)}
+.finalcta p{color:var(--muted);margin:8px 0 20px}
+.finalcta .ofbtn{display:inline-flex;align-items:center;gap:11px;
+  background:linear-gradient(92deg,#00AFF0,#0093d6);color:#fff;font-weight:800;font-size:1.02rem;
+  padding:15px 26px;border-radius:100px;box-shadow:0 12px 34px rgba(0,175,240,.42);
+  transition:transform .2s,box-shadow .2s}
+.finalcta .ofbtn:hover{transform:translateY(-2px);box-shadow:0 16px 44px rgba(0,175,240,.55)}
+.finalcta .ofbtn img{width:23px;height:23px}
+.finalcta .reassure2{display:block;margin-top:14px;font-size:.78rem;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -527,7 +550,8 @@ footer .copy{letter-spacing:.02em}
       <p class="lede">
         Créatrice <b>fitness &amp; lifestyle</b> à Bruxelles. Je partage mon quotidien, mon <span class="rotator" id="rotator">énergie</span>… et mon contenu le plus exclusif en privé.
       </p>
-      <span class="scrollcue"><i></i> Fais défiler</span>
+      <!-- ✏️ CTA du héro : scrolle vers l'offre OnlyFans -->
+      <a class="hero-cta" href="#magnet"><img src="onlyfans-icon-white.svg" alt="" aria-hidden="true">Voir mon contenu exclusif</a>
     </section>
 
     <!-- ===== PREUVE SOCIALE ✏️ Remplace par tes VRAIS chiffres (sinon laisse vide) ===== -->
@@ -658,16 +682,12 @@ footer .copy{letter-spacing:.02em}
       <details><summary>Sur quels appareils&nbsp;?</summary><div class="a">Partout : ordinateur, tablette et mobile, directement depuis ton navigateur.</div></details>
     </div>
 
-    <!-- ===== 07 · NEWSLETTER ===== -->
-    <div class="sec-head reveal"><span class="num">07</span><span class="label">Reste informé·e</span><span class="rule"></span></div>
-    <div class="cta reveal">
-      <h4>Ne rate aucune nouveauté</h4>
-      <p>Laisse ton e-mail : tu seras prévenu·e en avant-première des sorties et offres.</p>
-      <div class="cta-row">
-        <input type="email" id="email" placeholder="ton@email.com" aria-label="E-mail" autocomplete="email">
-        <button type="button" onclick="subscribe()">S'inscrire</button>
-      </div>
-      <p class="cta-status" id="cta-status" role="status" aria-live="polite"></p>
+    <!-- ===== APPEL FINAL (conversion) ✏️ Remplace href="#" par ton lien OnlyFans ===== -->
+    <div class="finalcta reveal">
+      <h3>Prête à me rejoindre&nbsp;?</h3>
+      <p>Tout mon contenu exclusif t'attend, en privé.</p>
+      <a class="ofbtn" href="#" target="_blank" rel="noopener"><img src="onlyfans-icon-white.svg" alt="" aria-hidden="true">Rejoindre sur OnlyFans →</a>
+      <span class="reassure2">🔒 Paiement sécurisé · Sans engagement · 18+</span>
     </div>
 
     <!-- ===== MARQUEE ===== -->
@@ -812,19 +832,7 @@ footer .copy{letter-spacing:.02em}
       catch(e){ window.scrollTo(0,0); document.documentElement.scrollTop=0; }
     });
 
-    /* Newsletter (démo — à relier à Brevo / Mailchimp) */
-    function subscribe(){
-      const input=document.getElementById('email');
-      const status=document.getElementById('cta-status');
-      const v=input.value.trim();
-      const valid=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-      const show=(m,t)=>{status.textContent=m;status.className='cta-status show '+t;};
-      if(!valid){show('Entre une adresse e-mail valide 🙂','err');input.focus();return;}
-      show('Merci ! Tu es bien inscrit·e ✨','ok');
-      input.value='';
-      // Pour rendre ça réel : envoie "v" vers ton service d'emailing (API/formulaire).
-    }
-    document.getElementById('email').addEventListener('keydown',e=>{if(e.key==='Enter')subscribe();});
+    /* (Newsletter retirée — remplacée par un appel final OnlyFans pour la conversion) */
 
     /* Musique de fond */
     (function(){
