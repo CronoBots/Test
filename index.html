@@ -798,15 +798,14 @@ footer .copy{letter-spacing:.02em}
       /* 2) Repli : démarrage au tout premier geste (politique navigateur sur l'autoplay) */
       const start=()=>{ if(!userPaused && bgm.paused) play(); };
       ['pointerdown','touchstart','keydown','mousemove','scroll'].forEach(ev=>addEventListener(ev,start,{once:true,passive:true}));
-      /* 3) Pause si l'onglet/la page n'est plus visible, reprise au retour */
+      /* 3) Pause quand l'onglet OU la fenêtre n'est plus active, reprise au retour */
       let wasPlaying=false;
-      document.addEventListener('visibilitychange',()=>{
-        if(document.hidden){
-          if(!bgm.paused){ wasPlaying=true; pause(); }
-        } else if(wasPlaying && !userPaused){
-          wasPlaying=false; play();
-        }
-      });
+      const suspend=()=>{ if(!bgm.paused){ wasPlaying=true; pause(); } };
+      const resume=()=>{ if(wasPlaying && !userPaused){ wasPlaying=false; play(); } };
+      document.addEventListener('visibilitychange',()=>{ if(document.hidden){ suspend(); } else { resume(); } });
+      addEventListener('blur', suspend);    // changement de fenêtre / d'application
+      addEventListener('focus', resume);
+      addEventListener('pagehide', suspend);
     })();
   </script>
 
