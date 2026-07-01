@@ -726,7 +726,7 @@ footer .copy{letter-spacing:.02em}
   <button class="sound" id="soundBtn" type="button" aria-pressed="false" aria-label="Activer la musique">
     <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
   </button>
-  <audio id="bgm" src="elaudace.mp3" loop preload="metadata" autoplay>
+  <!-- Musique de fond : gérée via l'API Web Audio (voir script) — sans élément média pour éviter les contrôles du téléphone -->
 
   <script>
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -815,33 +815,38 @@ footer .copy{letter-spacing:.02em}
 
     /* (Newsletter retirée — remplacée par un appel final OnlyFans pour la conversion) */
 
-    /* Musique de fond */
+    /* Musique de fond — via l'API Web Audio : NE s'affiche PAS dans les contrôles média
+       du téléphone (pas de lecteur sur l'écran verrouillé) et reste propre à la page. */
     (function(){
-      const bgm=document.getElementById('bgm'), btn=document.getElementById('soundBtn');
-      if(!bgm||!btn) return;
-      bgm.volume=0.35;
-      let userPaused=false;
-      const play=()=>bgm.play().then(()=>{
-        btn.classList.add('playing'); btn.setAttribute('aria-pressed','true');
-        btn.setAttribute('aria-label','Couper la musique');
-      }).catch(()=>{});
-      const pause=()=>{ bgm.pause(); btn.classList.remove('playing');
-        btn.setAttribute('aria-pressed','false'); btn.setAttribute('aria-label','Activer la musique'); };
-      btn.addEventListener('click',e=>{
-        e.stopPropagation();
-        if(bgm.paused){ userPaused=false; play(); } else { userPaused=true; pause(); }
-      });
-      /* 1) Tentative d'autoplay immédiat (joue si le navigateur l'autorise) */
-      play();
-      /* 2) Repli : démarrage au tout premier geste (politique navigateur sur l'autoplay) */
-      const start=()=>{ if(!userPaused && bgm.paused) play(); };
+      const btn=document.getElementById('soundBtn');
+      if(!btn) return;
+      const AC=window.AudioContext||window.webkitAudioContext;
+      if(!AC) return;
+      let ctx, gain, buffer, fetching, started=false, userPaused=false;
+      const setOn=on=>{ btn.classList.toggle('playing',on);
+        btn.setAttribute('aria-pressed',on?'true':'false');
+        btn.setAttribute('aria-label',on?'Couper la musique':'Activer la musique'); };
+      const load=()=>{ if(buffer) return Promise.resolve();
+        if(!fetching) fetching=fetch('elaudace.mp3').then(r=>r.arrayBuffer()).then(a=>ctx.decodeAudioData(a)).then(b=>{buffer=b;});
+        return fetching; };
+      const play=async()=>{
+        if(!ctx){ ctx=new AC(); gain=ctx.createGain(); gain.gain.value=0.32; gain.connect(ctx.destination); }
+        try{ if(ctx.state==='suspended') await ctx.resume(); }catch(e){}
+        if(!started){ try{ await load(); const s=ctx.createBufferSource(); s.buffer=buffer; s.loop=true; s.connect(gain); s.start(0); started=true; }catch(e){ return; } }
+        setOn(true);
+        try{ if('mediaSession' in navigator){ navigator.mediaSession.metadata=null; navigator.mediaSession.playbackState='none'; } }catch(e){}
+      };
+      const pause=()=>{ if(ctx && ctx.state==='running') ctx.suspend(); setOn(false); };
+      btn.addEventListener('click',e=>{ e.stopPropagation();
+        if(!ctx || ctx.state!=='running'){ userPaused=false; play(); } else { userPaused=true; pause(); } });
+      /* Démarrage au premier geste (obligatoire pour l'audio sur mobile) */
+      const start=()=>{ if(!userPaused && (!ctx || ctx.state!=='running')) play(); };
       ['pointerdown','touchstart','keydown','mousemove','scroll'].forEach(ev=>addEventListener(ev,start,{once:true,passive:true}));
-      /* 3) Pause quand l'onglet OU la fenêtre n'est plus active, reprise au retour */
-      let wasPlaying=false;
-      const suspend=()=>{ if(!bgm.paused){ wasPlaying=true; pause(); } };
-      const resume=()=>{ if(wasPlaying && !userPaused){ wasPlaying=false; play(); } };
-      document.addEventListener('visibilitychange',()=>{ if(document.hidden){ suspend(); } else { resume(); } });
-      addEventListener('blur', suspend);    // changement de fenêtre / d'application
+      /* Pause quand la page n'est plus visible/active ; reprise au retour */
+      const suspend=()=>{ if(ctx && ctx.state==='running'){ ctx.suspend(); setOn(false); } };
+      const resume=()=>{ if(!userPaused && started && ctx && ctx.state==='suspended'){ ctx.resume(); setOn(true); } };
+      document.addEventListener('visibilitychange',()=>{ document.hidden ? suspend() : resume(); });
+      addEventListener('blur', suspend);
       addEventListener('focus', resume);
       addEventListener('pagehide', suspend);
     })();
