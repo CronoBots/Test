@@ -540,7 +540,7 @@ footer .copy{letter-spacing:.02em}
       <!-- ✏️ Le grand nom -->
       <h1 class="bigname"><span class="fill">Elaudace</span></h1>
       <p class="lede">
-        Créatrice <b>fitness &amp; lifestyle</b> à Bruxelles. Je te partage mon quotidien, mon <span class="rotator" id="rotator">énergie</span>… et mon côté plus intime, rien que pour toi 😏
+        Créatrice <b>fitness &amp; lifestyle</b> à Bruxelles. Je te partage mon quotidien, <span class="rotator" id="rotator">mon énergie</span>… et mon côté plus intime, rien que pour toi 😏
       </p>
       <span class="scrollcue"><i></i> Fais défiler</span>
     </section>
@@ -758,7 +758,7 @@ footer .copy{letter-spacing:.02em}
     (function(){
       if(reduce) return;
       const el=document.getElementById('rotator');
-      const words=['énergie','complicité','sensualité','exclusivité','coulisses'];
+      const words=['mon énergie','ma complicité','ma sensualité','mon exclusivité','mes coulisses'];
       let i=0;
       setInterval(()=>{
         i=(i+1)%words.length;
@@ -822,33 +822,39 @@ footer .copy{letter-spacing:.02em}
       if(!btn) return;
       const AC=window.AudioContext||window.webkitAudioContext;
       if(!AC) return;
-      let ctx, gain, buffer, fetching, started=false, userPaused=false;
+      let ctx, gain, buffer, fetching, started=false, enabled=false;
       const setOn=on=>{ btn.classList.toggle('playing',on);
         btn.setAttribute('aria-pressed',on?'true':'false');
         btn.setAttribute('aria-label',on?'Couper la musique':'Activer la musique'); };
       const load=()=>{ if(buffer) return Promise.resolve();
         if(!fetching) fetching=fetch('elaudace.mp3').then(r=>r.arrayBuffer()).then(a=>ctx.decodeAudioData(a)).then(b=>{buffer=b;});
         return fetching; };
-      const play=async()=>{
+      const ensure=async()=>{
         if(!ctx){ ctx=new AC(); gain=ctx.createGain(); gain.gain.value=0.32; gain.connect(ctx.destination); }
         try{ if(ctx.state==='suspended') await ctx.resume(); }catch(e){}
-        if(!started){ try{ await load(); const s=ctx.createBufferSource(); s.buffer=buffer; s.loop=true; s.connect(gain); s.start(0); started=true; }catch(e){ return; } }
-        setOn(true);
+        if(!started){ try{ await load(); const s=ctx.createBufferSource(); s.buffer=buffer; s.loop=true; s.connect(gain); s.start(0); started=true; }catch(e){ return false; } }
+        return true;
+      };
+      const turnOn=async()=>{
+        enabled=true; setOn(true);
+        const ok=await ensure();
+        if(!enabled){ if(ctx && ctx.state==='running') ctx.suspend(); setOn(false); return; }  // coupée pendant le chargement
+        if(!ok){ setOn(false); return; }
         try{ if('mediaSession' in navigator){ navigator.mediaSession.metadata=null; navigator.mediaSession.playbackState='none'; } }catch(e){}
       };
-      const pause=()=>{ if(ctx && ctx.state==='running') ctx.suspend(); setOn(false); };
-      btn.addEventListener('click',e=>{ e.stopPropagation();
-        if(!ctx || ctx.state!=='running'){ userPaused=false; play(); } else { userPaused=true; pause(); } });
+      const turnOff=()=>{ enabled=false; if(ctx && ctx.state==='running') ctx.suspend(); setOn(false); };
+      /* Bouton : bascule fiable marche/arrêt */
+      btn.addEventListener('click',e=>{ e.stopPropagation(); enabled ? turnOff() : turnOn(); });
       /* Démarrage au premier geste (obligatoire pour l'audio sur mobile) */
-      const start=()=>{ if(!userPaused && (!ctx || ctx.state!=='running')) play(); };
-      ['pointerdown','touchstart','keydown','mousemove','scroll'].forEach(ev=>addEventListener(ev,start,{once:true,passive:true}));
-      /* Pause quand la page n'est plus visible/active ; reprise au retour */
-      const suspend=()=>{ if(ctx && ctx.state==='running'){ ctx.suspend(); setOn(false); } };
-      const resume=()=>{ if(!userPaused && started && ctx && ctx.state==='suspended'){ ctx.resume(); setOn(true); } };
-      document.addEventListener('visibilitychange',()=>{ document.hidden ? suspend() : resume(); });
-      addEventListener('blur', suspend);
-      addEventListener('focus', resume);
-      addEventListener('pagehide', suspend);
+      const first=()=>{ if(!enabled) turnOn(); };
+      ['pointerdown','touchstart','keydown','mousemove','scroll'].forEach(ev=>addEventListener(ev,first,{once:true,passive:true}));
+      /* Pause auto quand la page n'est plus visible/active ; reprise si l'utilisateur ne l'a pas coupée */
+      const autoSuspend=()=>{ if(ctx && ctx.state==='running'){ ctx.suspend(); setOn(false); } };
+      const autoResume=()=>{ if(enabled && ctx && ctx.state==='suspended'){ ctx.resume(); setOn(true); } };
+      document.addEventListener('visibilitychange',()=>{ document.hidden ? autoSuspend() : autoResume(); });
+      addEventListener('blur', autoSuspend);
+      addEventListener('focus', autoResume);
+      addEventListener('pagehide', autoSuspend);
     })();
   </script>
 
